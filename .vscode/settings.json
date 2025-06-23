@@ -1,0 +1,19 @@
+{
+    "files.associations": {
+        "*.hs": "haskell",
+        "context_capture.h": "c",
+        "process.h": "c",
+        "paging.h": "c",
+        "cstdlib": "c",
+        "scheduler.h": "c",
+        "chess.h": "c",
+        "evaluation.h": "c",
+        "combination.h": "c",
+        "tree.h": "c",
+        "ctype.h": "c",
+        "stdbool.h": "c",
+        "stdint.h": "c",
+        "treesearch.h": "c",
+        "string.h": "c"
+    }
+}
