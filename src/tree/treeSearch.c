@@ -176,8 +176,6 @@ static void bbBfs(NodeAddress root,
         int totalMoves;
         Move *moves = combination(&cur.n->info, &totalMoves);
 
-        bool shouldDeleteParent = false;
-
         for (int i = 0; i < totalMoves; ++i)
         {
             g_nodesExplored++;
@@ -200,8 +198,9 @@ static void bbBfs(NodeAddress root,
             {
                 if (abs(delta) >= 500)
                 {
-                    shouldDeleteParent = true;
-                    break; // Stop processing children
+                    // If a severe blunder, this move and its resulting branch are simply ignored.
+                    // The parent node is NOT deleted.
+                    continue; // Skip this child and its subtree
                 }
                 continue; // Skip this child
             }
@@ -230,13 +229,7 @@ static void bbBfs(NodeAddress root,
         }
 
         free(moves);
-
-        if (shouldDeleteParent)
-        {
-            // Remove this parent node and all its children
-            deleteTree(cur.n); // You must implement or already have this
-            continue;
-        }
+        // The 'shouldDeleteParent' logic and deleteTree call are removed entirely.
     }
 }
 

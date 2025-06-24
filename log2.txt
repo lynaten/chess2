@@ -1,0 +1,776 @@
+https://www.chess.com/analysis/game/computer/316977920?tab=analysis
+
+gcc -Wall -Wextra -g -Iheader -Iheader/tree -Isrc -c src/tree/treeSearch.c -o bin/tree/treeSearch.o
+gcc -Wall -Wextra -g -Iheader -Iheader/tree -Isrc -c src/main.c -o bin/main.o
+gcc -o bin/chess_sim  bin/chess/attack.o  bin/chess/chess.o  bin/chess/combination.o  bin/chess/evaluation.o  bin/chess/helper.o  bin/chess/imbalance.o  bin/chess/king.o  bin/chess/material.o  bin/chess/mobility.o  bin/chess/passedPawn.o  bin/chess/pawn.o  bin/chess/piece.o  bin/chess/space.o  bin/chess/threat.o  bin/chess/winnable.o  bin/tree/tree.o  bin/tree/treeSearch.o  bin/stdlib/string.o  bin/main.o -lm
+./bin/chess_sim
+Let engine play this turn? (y/n): y
+Enable debug this turn? (y/n): n
+Engine is thinking...
+Top-level move evaluations (leaf sum):
+Move g1 → f3 → Leaf-Sum = 10086
+Move e2 → e4 → Leaf-Sum = 15226
+Move e2 → e3 → Leaf-Sum = 16376
+Move d2 → d4 → Leaf-Sum = 15159
+Move d2 → d3 → Leaf-Sum = 7194
+Move b1 → c3 → Leaf-Sum = 4202
+Leaf-sum max = 16376
+[Debug] Nodes explored: 1651
+[Debug] Max depth reached: 3
+[Debug] Search time: 6110.58 ms
+[Debug] Freed nodes: 627
+    a b c d e f g h    
+   -----------------   
+8 | r n b q k b n r | 8
+7 | p p p p p p p p | 7
+6 | - - - - - - - - | 6
+5 | - - - - - - - - | 5
+4 | - - - - - - - - | 4
+3 | - - - - - - - - | 3
+2 | P P P P P P P P | 2
+1 | R N B Q K B N R | 1
+   -----------------   
+    a b c d e f g h    
+current position evaluation: 28
+Enter your move [Suggested: e2 → e3]: e2 e3
+Move is valid! Making the move.
+Let engine play this turn? (y/n): n
+    h g f e d c b a    
+   -----------------   
+1 | R N B K Q B N R | 1
+2 | P P P - P P P P | 2
+3 | - - - P - - - - | 3
+4 | - - - - - - - - | 4
+5 | - - - - - - - - | 5
+6 | - - - - - - - - | 6
+7 | p p p p p p p p | 7
+8 | r n b k q b n r | 8
+   -----------------   
+    h g f e d c b a    
+current position evaluation: 180
+Enter your move [Suggested: `9 → `9]: d7 d66
+Illegal move. Try again.
+Let engine play this turn? (y/n): n
+    h g f e d c b a    
+   -----------------   
+1 | R N B K Q B N R | 1
+2 | P P P - P P P P | 2
+3 | - - - P - - - - | 3
+4 | - - - - - - - - | 4
+5 | - - - - - - - - | 5
+6 | - - - - - - - - | 6
+7 | p p p p p p p p | 7
+8 | r n b k q b n r | 8
+   -----------------   
+    h g f e d c b a    
+current position evaluation: 180
+Enter your move [Suggested: `9 → `9]: d7 d6
+Move is valid! Making the move.
+Let engine play this turn? (y/n): y
+Enable debug this turn? (y/n): n
+Engine is thinking...
+Top-level move evaluations (leaf sum):
+Move f1 → c4 → Leaf-Sum = 23632
+Move d1 → h5 → Leaf-Sum = 41224
+Move d1 → g4 → Leaf-Sum = 16737
+Move d1 → f3 → Leaf-Sum = 31001
+Move d1 → e2 → Leaf-Sum = 14848
+Move d2 → d4 → Leaf-Sum = 32622
+Move c2 → c3 → Leaf-Sum = 42708
+Move b1 → c3 → Leaf-Sum = 23202
+Move b2 → b3 → Leaf-Sum = 20239
+Leaf-sum max = 42708
+[Debug] Nodes explored: 4604
+[Debug] Max depth reached: 3
+[Debug] Search time: 16890.06 ms
+[Debug] Freed nodes: 2374
+    a b c d e f g h    
+   -----------------   
+8 | r n b q k b n r | 8
+7 | p p p - p p p p | 7
+6 | - - - p - - - - | 6
+5 | - - - - - - - - | 5
+4 | - - - - - - - - | 4
+3 | - - - - P - - - | 3
+2 | P P P P - P P P | 2
+1 | R N B Q K B N R | 1
+   -----------------   
+    a b c d e f g h    
+current position evaluation: 124
+Enter your move [Suggested: c2 → c3]: c2 c3
+Move is valid! Making the move.
+Let engine play this turn? (y/n): n
+    h g f e d c b a    
+   -----------------   
+1 | R N B K Q B N R | 1
+2 | P P P - P - P P | 2
+3 | - - - P - P - - | 3
+4 | - - - - - - - - | 4
+5 | - - - - - - - - | 5
+6 | - - - - p - - - | 6
+7 | p p p p - p p p | 7
+8 | r n b k q b n r | 8
+   -----------------   
+    h g f e d c b a    
+current position evaluation: 356
+Enter your move [Suggested: `9 → `9]: c7 c6
+Move is valid! Making the move.
+Let engine play this turn? (y/n): y
+Enable debug this turn? (y/n): n
+Engine is thinking...
+Top-level move evaluations (leaf sum):
+Move g1 → f3 → Leaf-Sum = 2951
+Move g1 → e2 → Leaf-Sum = 2479
+Move d2 → d4 → Leaf-Sum = 9062
+Move d2 → d3 → Leaf-Sum = 3175
+Move b1 → a3 → Leaf-Sum = 4024
+Leaf-sum max = 9062
+[Debug] Nodes explored: 1550
+[Debug] Max depth reached: 3
+[Debug] Search time: 5512.23 ms
+[Debug] Freed nodes: 2757
+    a b c d e f g h    
+   -----------------   
+8 | r n b q k b n r | 8
+7 | p p - - p p p p | 7
+6 | - - p p - - - - | 6
+5 | - - - - - - - - | 5
+4 | - - - - - - - - | 4
+3 | - - P - P - - - | 3
+2 | P P - P - P P P | 2
+1 | R N B Q K B N R | 1
+   -----------------   
+    a b c d e f g h    
+current position evaluation: 28
+Enter your move [Suggested: d2 → d4]: d2 d4
+Move is valid! Making the move.
+Let engine play this turn? (y/n): n
+    h g f e d c b a    
+   -----------------   
+1 | R N B K Q B N R | 1
+2 | P P P - - - P P | 2
+3 | - - - P - P - - | 3
+4 | - - - - P - - - | 4
+5 | - - - - - - - - | 5
+6 | - - - - p p - - | 6
+7 | p p p p - - p p | 7
+8 | r n b k q b n r | 8
+   -----------------   
+    h g f e d c b a    
+current position evaluation: 132
+Enter your move [Suggested: `9 → `9]: c8 f5
+Move is valid! Making the move.
+Let engine play this turn? (y/n): y
+Enable debug this turn? (y/n): n
+Engine is thinking...
+Top-level move evaluations (leaf sum):
+Move g2 → g4 → Leaf-Sum = 11223
+Move f1 → d3 → Leaf-Sum = 23473
+Move e3 → e4 → Leaf-Sum = 38874
+Move d1 → f3 → Leaf-Sum = 22553
+Move b1 → a3 → Leaf-Sum = 5664
+Move b1 → d2 → Leaf-Sum = 10243
+Leaf-sum max = 38874
+[Debug] Nodes explored: 2735
+[Debug] Max depth reached: 3
+[Debug] Search time: 9633.13 ms
+[Debug] Freed nodes: 3482
+    a b c d e f g h    
+   -----------------   
+8 | r n - q k b n r | 8
+7 | p p - - p p p p | 7
+6 | - - p p - - - - | 6
+5 | - - - - - b - - | 5
+4 | - - - P - - - - | 4
+3 | - - P - P - - - | 3
+2 | P P - - - P P P | 2
+1 | R N B Q K B N R | 1
+   -----------------   
+    a b c d e f g h    
+current position evaluation: 91
+Enter your move [Suggested: e3 → e4]: e3 e4
+Move is valid! Making the move.
+Let engine play this turn? (y/n): n
+    h g f e d c b a    
+   -----------------   
+1 | R N B K Q B N R | 1
+2 | P P P - - - P P | 2
+3 | - - - - - P - - | 3
+4 | - - - P P - - - | 4
+5 | - - b - - - - - | 5
+6 | - - - - p p - - | 6
+7 | p p p p - - p p | 7
+8 | r n b k q - n r | 8
+   -----------------   
+    h g f e d c b a    
+current position evaluation: 228
+Enter your move [Suggested: `9 → `9]: f5 e6
+Move is valid! Making the move.
+Let engine play this turn? (y/n): y
+Enable debug this turn? (y/n): n
+Engine is thinking...
+Top-level move evaluations (leaf sum):
+Move g1 → f3 → Leaf-Sum = 16778
+Move d4 → d5 → Leaf-Sum = 37211
+Move c1 → e3 → Leaf-Sum = 19371
+Move b1 → d2 → Leaf-Sum = 7454
+Leaf-sum max = 37211
+[Debug] Nodes explored: 1149
+[Debug] Max depth reached: 3
+[Debug] Search time: 4070.16 ms
+[Debug] Freed nodes: 3775
+    a b c d e f g h    
+   -----------------   
+8 | r n - q k b n r | 8
+7 | p p - - p p p p | 7
+6 | - - p p b - - - | 6
+5 | - - - - - - - - | 5
+4 | - - - P P - - - | 4
+3 | - - P - - - - - | 3
+2 | P P - - - P P P | 2
+1 | R N B Q K B N R | 1
+   -----------------   
+    a b c d e f g h    
+current position evaluation: 249
+Enter your move [Suggested: d4 → d5]: d4 d5
+Move is valid! Making the move.
+Let engine play this turn? (y/n): n
+    h g f e d c b a    
+   -----------------   
+1 | R N B K Q B N R | 1
+2 | P P P - - - P P | 2
+3 | - - - - - P - - | 3
+4 | - - - P - - - - | 4
+5 | - - - - P - - - | 5
+6 | - - - b p p - - | 6
+7 | p p p p - - p p | 7
+8 | r n b k q - n r | 8
+   -----------------   
+    h g f e d c b a    
+current position evaluation: 388
+Enter your move [Suggested: `9 → `9]: e6 d7 
+Move is valid! Making the move.
+Let engine play this turn? (y/n): y
+Enable debug this turn? (y/n): n
+Engine is thinking...
+Top-level move evaluations (leaf sum):
+Move h2 → h3 → Leaf-Sum = 7539
+Move g1 → f3 → Leaf-Sum = 10061
+Move d5 → c6 → Leaf-Sum = 60921
+Move c1 → e3 → Leaf-Sum = 15260
+Move b1 → d2 → Leaf-Sum = 12123
+Leaf-sum max = 60921
+[Debug] Nodes explored: 1332
+[Debug] Max depth reached: 3
+[Debug] Search time: 4774.48 ms
+[Debug] Freed nodes: 4122
+    a b c d e f g h    
+   -----------------   
+8 | r n - q k b n r | 8
+7 | p p - b p p p p | 7
+6 | - - p p - - - - | 6
+5 | - - - P - - - - | 5
+4 | - - - - P - - - | 4
+3 | - - P - - - - - | 3
+2 | P P - - - P P P | 2
+1 | R N B Q K B N R | 1
+   -----------------   
+    a b c d e f g h    
+current position evaluation: 265
+Enter your move [Suggested: d5 → c6]: d5 c6
+Move is valid! Making the move.
+Let engine play this turn? (y/n): n
+    h g f e d c b a    
+   -----------------   
+1 | R N B K Q B N R | 1
+2 | P P P - - - P P | 2
+3 | - - - - - P - - | 3
+4 | - - - P - - - - | 4
+5 | - - - - - - - - | 5
+6 | - - - - p P - - | 6
+7 | p p p p b - p p | 7
+8 | r n b k q - n r | 8
+   -----------------   
+    h g f e d c b a    
+current position evaluation: 516
+Enter your move [Suggested: `9 → `9]: d7 c
+6
+Move is valid! Making the move.
+Let engine play this turn? (y/n): y
+Enable debug this turn? (y/n): n
+Engine is thinking...
+Top-level move evaluations (leaf sum):
+Move g1 → f3 → Leaf-Sum = 4641
+Move f1 → d3 → Leaf-Sum = 2752
+Move f2 → f3 → Leaf-Sum = 1924
+Move d1 → e2 → Leaf-Sum = 5070
+Move d1 → d3 → Leaf-Sum = 4982
+Move c1 → g5 → Leaf-Sum = 21813
+Move c1 → e3 → Leaf-Sum = 3868
+Move b1 → a3 → Leaf-Sum = 6724
+Move b1 → d2 → Leaf-Sum = 3864
+Leaf-sum max = 21813
+[Debug] Nodes explored: 2498
+[Debug] Max depth reached: 3
+[Debug] Search time: 9108.26 ms
+[Debug] Freed nodes: 4750
+    a b c d e f g h    
+   -----------------   
+8 | r n - q k b n r | 8
+7 | p p - - p p p p | 7
+6 | - - b p - - - - | 6
+5 | - - - - - - - - | 5
+4 | - - - - P - - - | 4
+3 | - - P - - - - - | 3
+2 | P P - - - P P P | 2
+1 | R N B Q K B N R | 1
+   -----------------   
+    a b c d e f g h    
+current position evaluation: 92
+Enter your move [Suggested: c1 → g5]: c1 g5
+Move is valid! Making the move.
+Let engine play this turn? (y/n): n
+    h g f e d c b a    
+   -----------------   
+1 | R N B K Q - N R | 1
+2 | P P P - - - P P | 2
+3 | - - - - - P - - | 3
+4 | - - - P - - - - | 4
+5 | - B - - - - - - | 5
+6 | - - - - p b - - | 6
+7 | p p p p - - p p | 7
+8 | r n b k q - n r | 8
+   -----------------   
+    h g f e d c b a    
+current position evaluation: 83
+Enter your move [Suggested: `9 → `9]: d8 a5
+Move is valid! Making the move.
+Let engine play this turn? (y/n): y
+Enable debug this turn? (y/n): n
+Engine is thinking...
+Top-level move evaluations (leaf sum):
+Move h2 → h4 → Leaf-Sum = 68
+Move g1 → f3 → Leaf-Sum = 97
+Move g1 → h3 → Leaf-Sum = 19570
+Move g1 → e2 → Leaf-Sum = 3701
+Move g5 → e7 → Leaf-Sum = 292
+Move g5 → c1 → Leaf-Sum = 14864
+Move g5 → d2 → Leaf-Sum = 18206
+Move g5 → e3 → Leaf-Sum = 65
+Move g5 → f4 → Leaf-Sum = 22213
+Move f1 → b5 → Leaf-Sum = 205
+Move f1 → c4 → Leaf-Sum = 29237
+Move f1 → d3 → Leaf-Sum = -485
+Move f2 → f4 → Leaf-Sum = -1808
+Move f2 → f3 → Leaf-Sum = -2719
+Move d1 → c1 → Leaf-Sum = -3712
+Move d1 → g4 → Leaf-Sum = 252
+Move d1 → f3 → Leaf-Sum = 8884
+Move d1 → d6 → Leaf-Sum = 52
+Move d1 → d5 → Leaf-Sum = 174
+Move d1 → d4 → Leaf-Sum = -5243
+Move d1 → d3 → Leaf-Sum = -1767
+Move d1 → d2 → Leaf-Sum = 17446
+Move b1 → d2 → Leaf-Sum = 143
+Move b2 → b4 → Leaf-Sum = 116
+Leaf-sum max = 29237
+[Debug] Nodes explored: 5710
+[Debug] Max depth reached: 3
+[Debug] Search time: 21187.46 ms
+[Debug] Freed nodes: 7250
+    a b c d e f g h    
+   -----------------   
+8 | r n - - k b n r | 8
+7 | p p - - p p p p | 7
+6 | - - b p - - - - | 6
+5 | q - - - - - B - | 5
+4 | - - - - P - - - | 4
+3 | - - P - - - - - | 3
+2 | P P - - - P P P | 2
+1 | R N - Q K B N R | 1
+   -----------------   
+    a b c d e f g h    
+current position evaluation: -3
+Enter your move [Suggested: f1 → c4]: f1 c4
+Move is valid! Making the move.
+Let engine play this turn? (y/n): n
+    h g f e d c b a    
+   -----------------   
+1 | R N - K Q - N R | 1
+2 | P P P - - - P P | 2
+3 | - - - - - P - - | 3
+4 | - - - P - B - - | 4
+5 | - B - - - - - q | 5
+6 | - - - - p b - - | 6
+7 | p p p p - - p p | 7
+8 | r n b k - - n r | 8
+   -----------------   
+    h g f e d c b a    
+current position evaluation: 34
+Enter your move [Suggested: `9 → `9]: a5 g5
+Move is valid! Making the move.
+Let engine play this turn? (y/n): y
+Enable debug this turn? (y/n): n
+Engine is thinking...
+Top-level move evaluations (leaf sum):
+Move h2 → h4 → Leaf-Sum = -812
+Move g1 → f3 → Leaf-Sum = -803
+Move g1 → h3 → Leaf-Sum = -883
+Move g1 → e2 → Leaf-Sum = -119349
+Move g2 → g3 → Leaf-Sum = -293031
+Move d1 → h5 → Leaf-Sum = -85899
+Move d1 → g4 → Leaf-Sum = -740
+Move d1 → f3 → Leaf-Sum = -772
+Move d1 → d6 → Leaf-Sum = -408256
+Move d1 → d5 → Leaf-Sum = -724
+Move d1 → d2 → Leaf-Sum = -301922
+Move c4 → f7 → Leaf-Sum = -764
+Move c4 → d5 → Leaf-Sum = -898
+Move c4 → f1 → Leaf-Sum = -112714
+Move c4 → d3 → Leaf-Sum = -57436
+Move c4 → b5 → Leaf-Sum = -279382
+Move c4 → b3 → Leaf-Sum = -124999
+Move b1 → a3 → Leaf-Sum = -172098
+Move b1 → d2 → Leaf-Sum = -867
+Move a2 → a4 → Leaf-Sum = -181985
+Leaf-sum max = -724
+[Debug] Nodes explored: 5206
+[Debug] Max depth reached: 3
+[Debug] Search time: 19235.20 ms
+[Debug] Freed nodes: 9750
+    a b c d e f g h    
+   -----------------   
+8 | r n - - k b n r | 8
+7 | p p - - p p p p | 7
+6 | - - b p - - - - | 6
+5 | - - - - - - q - | 5
+4 | - - B - P - - - | 4
+3 | - - P - - - - - | 3
+2 | P P - - - P P P | 2
+1 | R N - Q K - N R | 1
+   -----------------   
+    a b c d e f g h    
+current position evaluation: -1028
+Enter your move [Suggested: d1 → d5]: d1 d5
+Move is valid! Making the move.
+Let engine play this turn? (y/n): n
+    h g f e d c b a    
+   -----------------   
+1 | R N - K - - N R | 1
+2 | P P P - - - P P | 2
+3 | - - - - - P - - | 3
+4 | - - - P - B - - | 4
+5 | - q - - Q - - - | 5
+6 | - - - - p b - - | 6
+7 | p p p p - - p p | 7
+8 | r n b k - - n r | 8
+   -----------------   
+    h g f e d c b a    
+current position evaluation: -724
+Enter your move [Suggested: `9 → `9]: c6 d5
+Move is valid! Making the move.
+Let engine play this turn? (y/n): y
+Enable debug this turn? (y/n): n
+Engine is thinking...
+Top-level move evaluations (leaf sum):
+Move h2 → h4 → Leaf-Sum = -943321
+Move g1 → f3 → Leaf-Sum = -3338
+Move g1 → h3 → Leaf-Sum = -717383
+Move g1 → e2 → Leaf-Sum = -498448
+Move g2 → g3 → Leaf-Sum = -848852
+Move f2 → f4 → Leaf-Sum = -766834
+Move e4 → d5 → Leaf-Sum = -2892
+Move c4 → d5 → Leaf-Sum = -2636
+Move c4 → f1 → Leaf-Sum = -545193
+Move c4 → e2 → Leaf-Sum = -584910
+Move c4 → d3 → Leaf-Sum = -354698
+Move c4 → b5 → Leaf-Sum = -494487
+Move c4 → b3 → Leaf-Sum = -659203
+Move b1 → a3 → Leaf-Sum = -538394
+Move b1 → d2 → Leaf-Sum = -3084
+Move b2 → b3 → Leaf-Sum = -630403
+Leaf-sum max = -2636
+[Debug] Nodes explored: 4989
+[Debug] Max depth reached: 3
+[Debug] Search time: 16733.37 ms
+[Debug] Freed nodes: 12250
+    a b c d e f g h    
+   -----------------   
+8 | r n - - k b n r | 8
+7 | p p - - p p p p | 7
+6 | - - - p - - - - | 6
+5 | - - - b - - q - | 5
+4 | - - B - P - - - | 4
+3 | - - P - - - - - | 3
+2 | P P - - - P P P | 2
+1 | R N - - K - N R | 1
+   -----------------   
+    a b c d e f g h    
+current position evaluation: -3588
+Enter your move [Suggested: c4 → d5]: c4 d5
+Move is valid! Making the move.
+Let engine play this turn? (y/n): n
+    h g f e d c b a    
+   -----------------   
+1 | R N - K - - N R | 1
+2 | P P P - - - P P | 2
+3 | - - - - - P - - | 3
+4 | - - - P - - - - | 4
+5 | - q - - B - - - | 5
+6 | - - - - p - - - | 6
+7 | p p p p - - p p | 7
+8 | r n b k - - n r | 8
+   -----------------   
+    h g f e d c b a    
+current position evaluation: -2636
+Enter your move [Suggested: `9 → `9]: b8 c6
+Move is valid! Making the move.
+Let engine play this turn? (y/n): y
+Enable debug this turn? (y/n): n
+Engine is thinking...
+Top-level move evaluations (leaf sum):
+Move h2 → h4 → Leaf-Sum = -418142
+Move g1 → f3 → Leaf-Sum = -341949
+Move g1 → h3 → Leaf-Sum = -308727
+Move g1 → e2 → Leaf-Sum = -241499
+Move g2 → g3 → Leaf-Sum = -317472
+Move d5 → f7 → Leaf-Sum = -510955
+Move d5 → c6 → Leaf-Sum = -179309
+Move b1 → a3 → Leaf-Sum = -305748
+Move b1 → d2 → Leaf-Sum = -311140
+Leaf-sum max = -179309
+[Debug] Nodes explored: 3593
+[Debug] Max depth reached: 3
+[Debug] Search time: 11685.24 ms
+[Debug] Freed nodes: 13634
+    a b c d e f g h    
+   -----------------   
+8 | r - - - k b n r | 8
+7 | p p - - p p p p | 7
+6 | - - n p - - - - | 6
+5 | - - - B - - q - | 5
+4 | - - - - P - - - | 4
+3 | - - P - - - - - | 3
+2 | P P - - - P P P | 2
+1 | R N - - K - N R | 1
+   -----------------   
+    a b c d e f g h    
+current position evaluation: -2728
+Enter your move [Suggested: d5 → c6]: d5 c6
+Move is valid! Making the move.
+Let engine play this turn? (y/n): n
+    h g f e d c b a    
+   -----------------   
+1 | R N - K - - N R | 1
+2 | P P P - - - P P | 2
+3 | - - - - - P - - | 3
+4 | - - - P - - - - | 4
+5 | - q - - - - - - | 5
+6 | - - - - p B - - | 6
+7 | p p p p - - p p | 7
+8 | r n b k - - - r | 8
+   -----------------   
+    h g f e d c b a    
+current position evaluation: -1900
+Enter your move [Suggested: `9 → `9]: b7 c6
+Move is valid! Making the move.
+Let engine play this turn? (y/n): y
+Enable debug this turn? (y/n): n
+Engine is thinking...
+Top-level move evaluations (leaf sum):
+Move h2 → h4 → Leaf-Sum = -226053
+Move g1 → f3 → Leaf-Sum = -150890
+Move g1 → h3 → Leaf-Sum = -191291
+Move g1 → e2 → Leaf-Sum = -127917
+Move g2 → g3 → Leaf-Sum = -248523
+Move b1 → a3 → Leaf-Sum = -257565
+Move b1 → d2 → Leaf-Sum = -132777
+Leaf-sum max = -127917
+[Debug] Nodes explored: 2097
+[Debug] Max depth reached: 3
+[Debug] Search time: 6234.86 ms
+[Debug] Freed nodes: 14345
+    a b c d e f g h    
+   -----------------   
+8 | r - - - k b n r | 8
+7 | p - - - p p p p | 7
+6 | - - p p - - - - | 6
+5 | - - - - - - q - | 5
+4 | - - - - P - - - | 4
+3 | - - P - - - - - | 3
+2 | P P - - - P P P | 2
+1 | R N - - K - N R | 1
+   -----------------   
+    a b c d e f g h    
+current position evaluation: -2532
+Enter your move [Suggested: g1 → e2]: g1 e2
+Move is valid! Making the move.
+Let engine play this turn? (y/n): n
+    h g f e d c b a    
+   -----------------   
+1 | R - - K - - N R | 1
+2 | P P P N - - P P | 2
+3 | - - - - - P - - | 3
+4 | - - - P - - - - | 4
+5 | - q - - - - - - | 5
+6 | - - - - p p - - | 6
+7 | p p p p - - - p | 7
+8 | r n b k - - - r | 8
+   -----------------   
+    h g f e d c b a    
+current position evaluation: -2372
+Enter your move [Suggested: `9 → `9]: g5 g2
+Move is valid! Making the move.
+Let engine play this turn? (y/n): y
+Enable debug this turn? (y/n): n
+Engine is thinking...
+Top-level move evaluations (leaf sum):
+Move h1 → f1 → Leaf-Sum = -168628
+Move h1 → g1 → Leaf-Sum = -136069
+Move h2 → h4 → Leaf-Sum = -167212
+Move e2 → g3 → Leaf-Sum = -90888
+Move b1 → d2 → Leaf-Sum = -189482
+Leaf-sum max = -90888
+[Debug] Nodes explored: 1229
+[Debug] Max depth reached: 3
+[Debug] Search time: 3737.24 ms
+[Debug] Freed nodes: 14701
+    a b c d e f g h    
+   -----------------   
+8 | r - - - k b n r | 8
+7 | p - - - p p p p | 7
+6 | - - p p - - - - | 6
+5 | - - - - - - - - | 5
+4 | - - - - P - - - | 4
+3 | - - P - - - - - | 3
+2 | P P - - N P q P | 2
+1 | R N - - K - - R | 1
+   -----------------   
+    a b c d e f g h    
+current position evaluation: -2772
+Enter your move [Suggested: e2 → g3]: e2 g3
+Move is valid! Making the move.
+Let engine play this turn? (y/n): n
+    h g f e d c b a    
+   -----------------   
+1 | R - - K - - N R | 1
+2 | P q P - - - P P | 2
+3 | - N - - - P - - | 3
+4 | - - - P - - - - | 4
+5 | - - - - - - - - | 5
+6 | - - - - p p - - | 6
+7 | p p p p - - - p | 7
+8 | r n b k - - - r | 8
+   -----------------   
+    h g f e d c b a    
+current position evaluation: -2593
+Enter your move [Suggested: `9 → `9]: a8 b8
+Move is valid! Making the move.
+Let engine play this turn? (y/n): y
+Enable debug this turn? (y/n): n
+Engine is thinking...
+Top-level move evaluations (leaf sum):
+Move b1 → a3 → Leaf-Sum = -342578
+Move b1 → d2 → Leaf-Sum = -311107
+Leaf-sum max = -311107
+[Debug] Nodes explored: 794
+[Debug] Max depth reached: 3
+[Debug] Search time: 2373.19 ms
+[Debug] Freed nodes: 14984
+    a b c d e f g h    
+   -----------------   
+8 | - r - - k b n r | 8
+7 | p - - - p p p p | 7
+6 | - - p p - - - - | 6
+5 | - - - - - - - - | 5
+4 | - - - - P - - - | 4
+3 | - - P - - - N - | 3
+2 | P P - - - P q P | 2
+1 | R N - - K - - R | 1
+   -----------------   
+    a b c d e f g h    
+current position evaluation: -2638
+Enter your move [Suggested: b1 → d2]: b1 d2
+Move is valid! Making the move.
+Let engine play this turn? (y/n): n
+    h g f e d c b a    
+   -----------------   
+1 | R - - K - - - R | 1
+2 | P q P - N - P P | 2
+3 | - N - - - P - - | 3
+4 | - - - P - - - - | 4
+5 | - - - - - - - - | 5
+6 | - - - - p p - - | 6
+7 | p p p p - - - p | 7
+8 | r n b k - - r - | 8
+   -----------------   
+    h g f e d c b a    
+current position evaluation: -2494
+Enter your move [Suggested: `9 → `9]: b8 b2
+Move is valid! Making the move.
+Let engine play this turn? (y/n): y
+Enable debug this turn? (y/n): n
+Engine is thinking...
+Top-level move evaluations (leaf sum):
+Move h2 → h4 → Leaf-Sum = -205599
+Move a1 → d1 → Leaf-Sum = -136688
+Move a1 → b1 → Leaf-Sum = -201749
+Leaf-sum max = -136688
+[Debug] Nodes explored: 928
+[Debug] Max depth reached: 3
+[Debug] Search time: 2797.75 ms
+[Debug] Freed nodes: 15211
+    a b c d e f g h    
+   -----------------   
+8 | - - - - k b n r | 8
+7 | p - - - p p p p | 7
+6 | - - p p - - - - | 6
+5 | - - - - - - - - | 5
+4 | - - - - P - - - | 4
+3 | - - P - - - N - | 3
+2 | P r - N - P q P | 2
+1 | R - - - K - - R | 1
+   -----------------   
+    a b c d e f g h    
+current position evaluation: -2852
+Enter your move [Suggested: a1 → d1]: a1 d1
+Move is valid! Making the move.
+Let engine play this turn? (y/n): n
+    h g f e d c b a    
+   -----------------   
+1 | R - - K R - - - | 1
+2 | P q P - N - r P | 2
+3 | - N - - - P - - | 3
+4 | - - - P - - - - | 4
+5 | - - - - - - - - | 5
+6 | - - - - p p - - | 6
+7 | p p p p - - - p | 7
+8 | r n b k - - - - | 8
+   -----------------   
+    h g f e d c b a    
+current position evaluation: -2783
+Enter your move [Suggested: `9 → `9]: g8 f6
+Move is valid! Making the move.
+Let engine play this turn? (y/n): y
+Enable debug this turn? (y/n): n
+Engine is thinking...
+Top-level move evaluations (leaf sum):
+Leaf-sum max = -9223372036854775808
+[Debug] Nodes explored: 23
+[Debug] Max depth reached: 0
+[Debug] Search time: 71.45 ms
+[Debug] Freed nodes: 15212
+    a b c d e f g h    
+   -----------------   
+8 | - - - - k b - r | 8
+7 | p - - - p p p p | 7
+6 | - - p p - n - - | 6
+5 | - - - - - - - - | 5
+4 | - - - - P - - - | 4
+3 | - - P - - - N - | 3
+2 | P r - N - P q P | 2
+1 | - - - R K - - R | 1
+   -----------------   
+    a b c d e f g h    
+current position evaluation: -2842
+Enter your move [Suggested: `9 → `9]: 
