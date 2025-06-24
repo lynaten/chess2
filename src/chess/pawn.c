@@ -1,6 +1,7 @@
 #include "header/chess/pawn.h"
-int isolated(ChessPosition *pos, Square *square, void *param)
+int isolated(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, isolated, NULL);
@@ -19,8 +20,9 @@ int isolated(ChessPosition *pos, Square *square, void *param)
     return 1;
 }
 
-int opposed(ChessPosition *pos, Square *square, void *param)
+int opposed(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, opposed, NULL);
@@ -39,8 +41,9 @@ int opposed(ChessPosition *pos, Square *square, void *param)
     return 0;
 }
 
-int phalanx(ChessPosition *pos, Square *square, void *param)
+int phalanx(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, phalanx, NULL);
@@ -56,8 +59,9 @@ int phalanx(ChessPosition *pos, Square *square, void *param)
     return 0;
 }
 
-int supported(ChessPosition *pos, Square *square, void *param)
+int supported(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, supported, NULL);
@@ -69,8 +73,9 @@ int supported(ChessPosition *pos, Square *square, void *param)
     return (board(pos, square->x - 1, square->y + 1) == 'P' ? 1 : 0) + (board(pos, square->x + 1, square->y + 1) == 'P' ? 1 : 0);
 }
 
-int backward(ChessPosition *pos, Square *square, void *param)
+int backward(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, backward, NULL);
@@ -95,8 +100,9 @@ int backward(ChessPosition *pos, Square *square, void *param)
     return 0;
 }
 
-int doubled(ChessPosition *pos, Square *square, void *param)
+int doubled(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, doubled, NULL);
@@ -120,8 +126,9 @@ int doubled(ChessPosition *pos, Square *square, void *param)
     return 1;
 }
 
-int connected(ChessPosition *pos, Square *square, void *param)
+int connected(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, connected, NULL);
@@ -133,8 +140,9 @@ int connected(ChessPosition *pos, Square *square, void *param)
     return 0;
 }
 
-int connected_bonus(ChessPosition *pos, Square *square, void *param)
+int connected_bonus(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, connected_bonus, NULL);
@@ -159,8 +167,9 @@ int connected_bonus(ChessPosition *pos, Square *square, void *param)
     return seed[r - 1] * (2 + ph - op) + 21 * su;
 }
 
-int weak_unopposed_pawn(ChessPosition *pos, Square *square, void *param)
+int weak_unopposed_pawn(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, weak_unopposed_pawn, NULL);
@@ -183,8 +192,9 @@ int weak_unopposed_pawn(ChessPosition *pos, Square *square, void *param)
     return v;
 }
 
-int weak_lever(ChessPosition *pos, Square *square, void *param)
+int weak_lever(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, weak_lever, NULL);
@@ -212,8 +222,9 @@ int weak_lever(ChessPosition *pos, Square *square, void *param)
     return 1;
 }
 
-int blocked(ChessPosition *pos, Square *square, void *param)
+int blocked(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, blocked, NULL);
@@ -233,8 +244,9 @@ int blocked(ChessPosition *pos, Square *square, void *param)
     return 4 - square->y;
 }
 
-int doubled_isolated(ChessPosition *pos, Square *square, void *param)
+int doubled_isolated(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, doubled_isolated, NULL);
@@ -269,8 +281,9 @@ int doubled_isolated(ChessPosition *pos, Square *square, void *param)
     return 0;
 }
 
-int pawns_mg(ChessPosition *pos, Square *square, void *param)
+int pawns_mg(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, pawns_mg, NULL);
@@ -297,8 +310,9 @@ int pawns_mg(ChessPosition *pos, Square *square, void *param)
     return v;
 }
 
-int pawns_eg(ChessPosition *pos, Square *square, void *param)
+int pawns_eg(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, pawns_eg, NULL);

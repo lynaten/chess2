@@ -1,7 +1,8 @@
 #include "header/chess/winnable.h"
 
-int winnable(ChessPosition *pos)
+int winnable(ChessPosition *pos1, ChessPosition *pos2, bool colorflipped)
 {
+    ChessPosition *pos = pos1;
     int pawns = 0, kx[2] = {0, 0}, ky[2] = {0, 0}, flanks[2] = {0, 0};
 
     for (int x = 0; x < 8; x++)
@@ -30,9 +31,6 @@ int winnable(ChessPosition *pos)
         }
     }
 
-    ChessPosition flipped;
-    ChessPosition *pos2 = &flipped;
-    colorflip(pos, pos2);
     int passedCount = candidate_passed(pos, NULL, NULL) + candidate_passed(pos2, NULL, NULL);
     int bothFlanks = (flanks[0] && flanks[1]) ? 1 : 0;
     int outflanking = abs(kx[0] - kx[1]) - abs(ky[0] - ky[1]);
@@ -43,8 +41,9 @@ int winnable(ChessPosition *pos)
     return 9 * passedCount + 12 * pawns + 9 * outflanking + 21 * bothFlanks + 24 * infiltration + 51 * purePawn - 43 * almostUnwinnable - 110;
 }
 
-int winnable_total_mg(ChessPosition *pos, void *param)
+int winnable_total_mg(ChessPosition *pos1, ChessPosition *pos2, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     int v = *(int *)param;
 
     if (param == NULL)
@@ -54,7 +53,6 @@ int winnable_total_mg(ChessPosition *pos, void *param)
 
     // Calculate winnable_value
     int winnable_value = winnable(pos) + 50;
-
 
     // Calculate bounded_value
     int bounded_value = (winnable_value > 0) ? 0 : -abs(v);
@@ -67,8 +65,9 @@ int winnable_total_mg(ChessPosition *pos, void *param)
     return result;
 }
 
-int winnable_total_eg(ChessPosition *pos, void *param)
+int winnable_total_eg(ChessPosition *pos1, ChessPosition *pos2, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     int v = *(int *)param;
 
     if (param == NULL)

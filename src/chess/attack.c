@@ -1,7 +1,8 @@
 #include "header/chess/attack.h"
 
-int pinned_direction(ChessPosition *pos, Square *square, void *param)
+int pinned_direction(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (!square)
         return sum(pos, pinned_direction, NULL);
     char piece = board(pos, square->x, square->y);
@@ -39,8 +40,9 @@ int pinned_direction(ChessPosition *pos, Square *square, void *param)
     return 0;
 }
 
-int knight_attack(ChessPosition *pos, Square *square, void *param)
+int knight_attack(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     Square *s2 = (Square *)param;
     if (!square)
         return sum(pos, knight_attack, NULL);
@@ -56,8 +58,9 @@ int knight_attack(ChessPosition *pos, Square *square, void *param)
     return v;
 }
 
-int bishop_xray_attack(ChessPosition *pos, Square *square, void *param)
+int bishop_xray_attack(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     Square *s2 = (Square *)param;
     if (!square)
         return sum(pos, bishop_xray_attack, NULL);
@@ -82,8 +85,9 @@ int bishop_xray_attack(ChessPosition *pos, Square *square, void *param)
     return v;
 }
 
-int rook_xray_attack(ChessPosition *pos, Square *square, void *param)
+int rook_xray_attack(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     Square *s2 = (Square *)param;
     if (!square)
         return sum(pos, rook_xray_attack, NULL);
@@ -110,8 +114,9 @@ int rook_xray_attack(ChessPosition *pos, Square *square, void *param)
     return v;
 }
 
-int queen_attack(ChessPosition *pos, Square *square, void *param)
+int queen_attack(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     Square *s2 = (Square *)param;
     if (!square)
         return sum(pos, queen_attack, NULL);
@@ -136,8 +141,9 @@ int queen_attack(ChessPosition *pos, Square *square, void *param)
     return v;
 }
 
-int pawn_attack(ChessPosition *pos, Square *square, void *param)
+int pawn_attack(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (!square)
         return sum(pos, pawn_attack, NULL);
     int v = 0;
@@ -148,8 +154,9 @@ int pawn_attack(ChessPosition *pos, Square *square, void *param)
     return v;
 }
 
-int king_attack(ChessPosition *pos, Square *square, void *param)
+int king_attack(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (!square)
         return sum(pos, king_attack, NULL);
     for (int i = 0; i < 8; i++)
@@ -162,8 +169,9 @@ int king_attack(ChessPosition *pos, Square *square, void *param)
     return 0;
 }
 
-int attack(ChessPosition *pos, Square *square, void *param)
+int attack(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (!square)
         return sum(pos, attack, NULL);
     int v = 0;
@@ -189,8 +197,9 @@ bool is_square_attacked(ChessPosition *pos, int x, int y, bool byWhite)
 }
 
 // Queen diagonal attack function
-int queen_attack_diagonal(ChessPosition *pos, Square *square, void *param)
+int queen_attack_diagonal(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     Square *s2 = (Square *)param;
     if (!square)
     {
@@ -233,8 +242,9 @@ int queen_attack_diagonal(ChessPosition *pos, Square *square, void *param)
 }
 
 // Pinned function
-int pinned(ChessPosition *pos, Square *square, void *param)
+int pinned(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (!square)
     {
         return sum(pos, pinned, NULL); // Assuming `sum` is implemented elsewhere

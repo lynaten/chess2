@@ -2,19 +2,19 @@
 #define PAWN_H
 #include "chess.h"
 #include "helper.h"
-int isolated(ChessPosition *pos, Square *square, void *param);
-int opposed(ChessPosition *pos, Square *square, void *param);
-int phalanx(ChessPosition *pos, Square *square, void *param);
-int supported(ChessPosition *pos, Square *square, void *param);
-int backward(ChessPosition *pos, Square *square, void *param);
-int doubled(ChessPosition *pos, Square *square, void *param);
-int connected(ChessPosition *pos, Square *square, void *param);
-int connected_bonus(ChessPosition *pos, Square *square, void *param);
-int weak_unopposed_pawn(ChessPosition *pos, Square *square, void *param);
-int weak_lever(ChessPosition *pos, Square *square, void *param);
-int blocked(ChessPosition *pos, Square *square, void *param);
-int doubled_isolated(ChessPosition *pos, Square *square, void *param);
-int pawns_mg(ChessPosition *pos, Square *square, void *param);
-int pawns_eg(ChessPosition *pos, Square *square, void *param);
+int isolated(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int opposed(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int phalanx(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int supported(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int backward(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int doubled(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int connected(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int connected_bonus(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int weak_unopposed_pawn(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int weak_lever(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int blocked(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int doubled_isolated(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int pawns_mg(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int pawns_eg(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
 
 #endif

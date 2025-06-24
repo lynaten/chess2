@@ -4,21 +4,19 @@
 #include "attack.h"
 #include "mobility.h"
 #include "helper.h"
-int safe_pawn(ChessPosition *pos, Square *square, void *param);
-int threat_safe_pawn(ChessPosition *pos, Square *square, void *param);
-int weak_enemies(ChessPosition *pos, Square *square, void *param);
-int minor_threat(ChessPosition *pos, Square *square, void *param);
-int rook_threat(ChessPosition *pos, Square *square, void *param);
-int hanging(ChessPosition *pos, Square *square, void *param);
-int king_threat(ChessPosition *pos, Square *square, void *param);
-int pawn_push_threat(ChessPosition *pos, Square *square, void *param);
-int slider_on_queen(ChessPosition *pos, Square *square, void *param);
-int knight_on_queen(ChessPosition *pos, Square *square, void *param);
-int restricted(ChessPosition *pos, Square *square, void *param);
-int weak_queen_protection(ChessPosition *pos, Square *square, void *param);
-int minor_threat_eval(ChessPosition *pos, Square *square, void *param);
-int rook_threat_eval(ChessPosition *pos, Square *square, void *param);
-int threats_mg(ChessPosition *pos);
-int threats_eg(ChessPosition *pos);
+int safe_pawn(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int threat_safe_pawn(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int weak_enemies(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int minor_threat(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int rook_threat(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int hanging(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int king_threat(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int pawn_push_threat(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int slider_on_queen(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int knight_on_queen(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int restricted(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int weak_queen_protection(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int threats_mg(ChessPosition *pos1, ChessPosition *pos2, bool colorflipped);
+int threats_eg(ChessPosition *pos1, ChessPosition *pos2, bool colorflipped);
 
 #endif

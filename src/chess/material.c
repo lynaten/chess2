@@ -1,7 +1,8 @@
 #include "header/chess/material.h"
 
-int non_pawn_material(ChessPosition *pos, Square *square, void *param)
+int non_pawn_material(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, non_pawn_material, NULL);
@@ -11,14 +12,15 @@ int non_pawn_material(ChessPosition *pos, Square *square, void *param)
     // Check if the piece is one of "NBRQ" (Knight, Bishop, Rook, Queen)
     if (piece == 'N' || piece == 'B' || piece == 'R' || piece == 'Q')
     {
-        return piece_value_bonus(pos, square, &(bool){true}); // Pass 1 for 'true'
+        return piece_value_bonus(pos, square, &(bool){true});
     }
 
     return 0; // Return 0 if it's not one of "NBRQ"
 }
 
-int piece_value_bonus(ChessPosition *pos, Square *square, void *param)
+int piece_value_bonus(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     bool mg = *(bool *)param;
     if (!square)
         return sum(pos, piece_value_bonus, param);
@@ -40,8 +42,9 @@ int piece_value_bonus(ChessPosition *pos, Square *square, void *param)
     return a[i]; // Access the array element based on `i`
 }
 
-int psqt_bonus(ChessPosition *pos, Square *square, void *param)
+int psqt_bonus(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     bool mg = *(bool *)param;
 
     if (!square)
@@ -80,29 +83,33 @@ int psqt_bonus(ChessPosition *pos, Square *square, void *param)
     }
 }
 
-int piece_value_mg(ChessPosition *pos, Square *square, void *param)
+int piece_value_mg(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (!square)
         return sum(pos, piece_value_mg, param);
     return piece_value_bonus(pos, square, &(bool){true});
 }
 
-int piece_value_eg(ChessPosition *pos, Square *square, void *param)
+int piece_value_eg(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (!square)
         return sum(pos, piece_value_eg, param);
     return piece_value_bonus(pos, square, &(bool){false});
 }
 
-int psqt_mg(ChessPosition *pos, Square *square, void *param)
+int psqt_mg(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (!square)
         return sum(pos, psqt_mg, NULL);
     return psqt_bonus(pos, square, &(bool){true});
 }
 
-int psqt_eg(ChessPosition *pos, Square *square, void *param)
+int psqt_eg(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (!square)
         return sum(pos, psqt_eg, NULL);
     return psqt_bonus(pos, square, &(bool){false});

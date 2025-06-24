@@ -1,7 +1,8 @@
 #include "header/chess/space.h"
 
-int space_area(ChessPosition *pos, Square *square, void *param)
+int space_area(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = pos1;
     if (square == NULL)
     {
         return sum(pos, space_area, NULL);
@@ -17,9 +18,6 @@ int space_area(ChessPosition *pos, Square *square, void *param)
         (board(pos, square->x + 1, square->y - 1) != 'p'))
     {
         v++;
-        ChessPosition flipped;
-        ChessPosition *pos2 = &flipped;
-        colorflip(pos, pos2);
         if ((board(pos, square->x, square->y - 1) == 'P' ||
              board(pos, square->x, square->y - 2) == 'P' ||
              board(pos, square->x, square->y - 3) == 'P') &&
@@ -31,8 +29,9 @@ int space_area(ChessPosition *pos, Square *square, void *param)
     return v;
 }
 
-int pieceCount(ChessPosition *pos, Square *square, void *param)
+int pieceCount(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, piece_count, NULL);
@@ -45,8 +44,9 @@ int pieceCount(ChessPosition *pos, Square *square, void *param)
     return 0;
 }
 
-int blockedCount(ChessPosition *pos, Square *square, void *param)
+int blockedCount(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, blockedCount, NULL);
@@ -70,25 +70,44 @@ int blockedCount(ChessPosition *pos, Square *square, void *param)
     return result;
 }
 
-int space(ChessPosition *pos)
+int space(ChessPosition *pos1, ChessPosition *pos2, bool colorflipped)
 {
-    ChessPosition flipped;
-    ChessPosition *pos2 = &flipped;
-    colorflip(pos, pos2);
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
+    ChessPosition *pos3 = !colorflipped ? pos2 : pos1;
 
-    pos->eval.non_pawn_material = non_pawn_material(pos, NULL, NULL) + non_pawn_material(pos2, NULL, NULL);
-
-    if (pos->eval.non_pawn_material < 12222)
+    if (non_pawn_material(pos, NULL, NULL) + non_pawn_material(pos3, NULL, NULL) < 12222)
     {
         return 0;
     }
+    int pieceCount = 0;
+    int blockedCount = 0;
 
-    pos->eval.piece_count = pieceCount(pos, NULL, NULL);
-    pos->eval.blocked_count = blockedCount(pos, NULL, NULL);
-    pos->eval.space_area = space_area(pos, NULL, NULL);
+    for (int x = 0; x < 8; x++)
+    {
+        for (int y = 0; y < 8; y++)
+        {
+            char piece = board(pos, x, y);
+            if (strchr("PNBRQK", piece) != NULL)
+            {
+                pieceCount++;
+            }
+            if (piece == 'P' &&
+                (board(pos, x, y - 1) == 'p' ||
+                 (board(pos, x - 1, y - 2) == 'p' &&
+                  board(pos, x + 1, y - 2) == 'p')))
+            {
+                blockedCount++;
+            }
+            if (piece == 'p' &&
+                (board(pos, x, y + 1) == 'P' ||
+                 (board(pos, x - 1, y + 2) == 'P' &&
+                  board(pos, x + 1, y + 2) == 'P')))
+            {
+                blockedCount++;
+            }
+        }
+    }
 
-    int weight = pos->eval.piece_count - 3 + MIN(pos->eval.blocked_count, 9);
-    int result = ((pos->eval.space_area * weight * weight / 16) << 0);
-
-    return result;
+    int weight = pieceCount - 3 + MIN(blockedCount, 9);
+    return ((space_area(pos, NULL, NULL) * weight * weight / 16) << 0);
 }

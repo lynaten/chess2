@@ -1,6 +1,7 @@
 #include "header/chess/mobility.h"
-int mobility_area(ChessPosition *pos, Square *square, void *param)
+int mobility_area(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = pos1;
     if (!square)
         return sum(pos, mobility_area, NULL);
     if (board(pos, square->x, square->y) == 'K')
@@ -14,16 +15,14 @@ int mobility_area(ChessPosition *pos, Square *square, void *param)
     if (board(pos, square->x, square->y) == 'P' &&
         (rank(pos, square, NULL) < 4 || board(pos, square->x, square->y - 1) != '-'))
         return 0;
-    ChessPosition flipped;
-    ChessPosition *pos2 = &flipped;
-    colorflip(pos, pos2);
     if (blockers_for_king(pos2, &(Square){square->x, 7 - square->y}, NULL))
         return 0;
     return 1;
 }
 
-int mobility(ChessPosition *pos, Square *square, void *param)
+int mobility(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (!square)
         return sum(pos, mobility, NULL);
     int v = 0;
@@ -51,8 +50,9 @@ int mobility(ChessPosition *pos, Square *square, void *param)
     return v;
 }
 
-int mobility_bonus(ChessPosition *pos, Square *square, void *param)
+int mobility_bonus(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     // Ensure param is defined and cast to bool*
     bool mg = *(bool *)param;
 
@@ -79,15 +79,17 @@ int mobility_bonus(ChessPosition *pos, Square *square, void *param)
     return bonus[i][mobility(pos, square, NULL)];
 }
 
-int mobility_mg(ChessPosition *pos, Square *square, void *param)
+int mobility_mg(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
         return sum(pos, mobility_mg, NULL);
     return mobility_bonus(pos, square, &(bool){true});
 }
 
-int mobility_eg(ChessPosition *pos, Square *square, void *param)
+int mobility_eg(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (!square)
         return sum(pos, mobility_eg, NULL);
     return mobility_bonus(pos, square, &(bool){false});

@@ -13,12 +13,12 @@
 #include "piece.h"
 #include "imbalance.h"
 
-int main_evaluation(ChessPosition *pos);
-int middle_game_evaluation(ChessPosition *pos, bool nowinnable);
-int end_game_evaluation(ChessPosition *pos, bool nowinnable);
-int scale_factor(ChessPosition *pos, int eg);
-int phase(ChessPosition *pos);
-int tempo(ChessPosition *pos, Square *square);
-int rule(ChessPosition *pos, Square *square);
+int main_evaluation(ChessPosition *pos1, ChessPosition *pos2, bool colorflipped);
+int middle_game_evaluation(ChessPosition *pos1, ChessPosition *pos2, bool nowinnablepos2, bool colorflipped);
+int end_game_evaluation(ChessPosition *pos1, ChessPosition *pos2, bool nowinnablepos2, bool colorflipped);
+int scale_factor(ChessPosition *pos1, ChessPosition *pos2, int eg, bool colorflipped);
+int phase(ChessPosition *pos1, ChessPosition *pos2, bool colorflipped);
+int tempo(ChessPosition *pos1, ChessPosition *pos2, Square *square, bool colorflipped);
+int rule(ChessPosition *pos1, ChessPosition *pos2, Square *square, bool colorflipped);
 
 #endif

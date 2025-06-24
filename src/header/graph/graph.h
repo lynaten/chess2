@@ -1,39 +1,45 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
-#include "header/chess/chess.h"
+// These includes are typically needed for common C library functions used in graph operations
+// _DEFAULT_SOURCE is a GCC extension, often not needed in headers but good for consistency
+#define _DEFAULT_SOURCE
+#include <stdio.h>
 #include "header/chess/evaluation.h"
-#include "header/chess/combination.h"
-/* -------------------------------------------------------------------------
-   TREE ADT
-   ------------------------------------------------------------------------- */
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#include <stdbool.h> // For bool if your compiler needs it explicitly for bool
 
-typedef struct chessTreeNode *NodeAddress;
-typedef struct childNode *ChildAddress;
-
-extern int g_nodesFreed;
-
-typedef struct chessTreeNode
+// Define the GraphNode structure
+typedef struct GraphNode
 {
-    ChessPosition info;    // The current position (with evaluationBar, etc.)
-    ChildAddress children; // Linked list of child nodes
-    bool deleted;
-} ChessTreeNode;
+    char *name;
+    struct GraphNode **calls;
+    int calls_count;
+    struct GraphNode **called_by;
+    int called_by_count;
+    int visited;
+    int total_value;
+    int value[8][8];
+    int colorflip_total_value;
+    int colorflip_value[8][8];
+} GraphNode;
 
-typedef struct childNode
-{
-    NodeAddress info;  // Pointer to the child tree node
-    ChildAddress next; // Next sibling
-} ChildNode;
+// Declare global variables
+extern GraphNode **all_nodes;
+extern int node_count;
 
-typedef NodeAddress ChessTree;
+// Declare function prototypes
+GraphNode *find_or_create_node(const char *name);
+void add_connection(GraphNode *from, GraphNode *to);
+void trim_whitespace(char *str);
+void parse_connections(GraphNode *current_node, char *line, int is_calls_line);
+void dfs_topological_sort(GraphNode *node);
+void free_graph();
+void reset_graph();
+int get_function_index(const char *name);
+int initialize_graph_from_file();
+int main_function_handler(const char *name, ChessPosition *pos, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
 
-NodeAddress createTreeNode(const ChessPosition *pos);
-void addChild(NodeAddress parent, NodeAddress child);
-void freeTree(ChessTree root);
-void generateTree(NodeAddress root, int depth);
-ChessTree initializeTree(const ChessPosition *initialPos, int depth);
-void findBestPath(NodeAddress node, int depth, Move *bestPath, int *bestEvaluation, Move *currentPath, int currentDepth, int currentEvaluation);
-void findBestEvaluationPath(ChessTree tree, int depth);
-void deleteTree(NodeAddress n);
-#endif
+#endif // GRAPH_H

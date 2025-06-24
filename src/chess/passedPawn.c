@@ -1,7 +1,8 @@
 #include "header/chess/passedPawn.h"
 
-int candidate_passed(ChessPosition *pos, Square *square, void *param)
+int candidate_passed(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, candidate_passed, NULL);
@@ -62,8 +63,9 @@ int candidate_passed(ChessPosition *pos, Square *square, void *param)
     return 1;
 }
 
-int king_proximity(ChessPosition *pos, Square *square, void *param)
+int king_proximity(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, king_proximity, NULL);
@@ -101,8 +103,9 @@ int king_proximity(ChessPosition *pos, Square *square, void *param)
     return v;
 }
 
-int passed_block(ChessPosition *pos, Square *square, void *param)
+int passed_block(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = pos1;
     if (square == NULL)
     {
         return sum(pos, passed_block, NULL);
@@ -122,9 +125,6 @@ int passed_block(ChessPosition *pos, Square *square, void *param)
     int r = rank(pos, square, NULL) - 1;
     int w = r > 2 ? 5 * r - 13 : 0;
 
-    ChessPosition flipped;
-    ChessPosition *pos2 = &flipped;
-    colorflip(pos, pos2);
     int defended = 0, unsafe = 0, wunsafe = 0, defended1 = 0, unsafe1 = 0;
 
     for (int y = square->y - 1; y >= 0; y--)
@@ -160,8 +160,9 @@ int passed_block(ChessPosition *pos, Square *square, void *param)
     return k * w;
 }
 
-int passed_file(ChessPosition *pos, Square *square, void *param)
+int passed_file(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, passed_file, NULL);
@@ -174,8 +175,9 @@ int passed_file(ChessPosition *pos, Square *square, void *param)
     return MIN(file_num - 1, 8 - file_num);
 }
 
-int passed_rank(ChessPosition *pos, Square *square, void *param)
+int passed_rank(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, passed_rank, NULL);
@@ -187,8 +189,9 @@ int passed_rank(ChessPosition *pos, Square *square, void *param)
     return rank(pos, square, NULL) - 1;
 }
 
-int passed_leverable(ChessPosition *pos, Square *square, void *param)
+int passed_leverable(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = pos1;
     if (square == NULL)
     {
         return sum(pos, passed_leverable, NULL);
@@ -202,9 +205,6 @@ int passed_leverable(ChessPosition *pos, Square *square, void *param)
         return 1;
     }
 
-    ChessPosition flipped;
-    ChessPosition *pos2 = &flipped;
-    colorflip(pos, pos2);
     for (int i = -1; i <= 1; i += 2)
     {
         Square s1 = {square->x + i, square->y};
@@ -221,8 +221,9 @@ int passed_leverable(ChessPosition *pos, Square *square, void *param)
     return 0;
 }
 
-int passed_mg(ChessPosition *pos, Square *square, void *param)
+int passed_mg(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, passed_mg, NULL);
@@ -241,8 +242,9 @@ int passed_mg(ChessPosition *pos, Square *square, void *param)
     return v;
 }
 
-int passed_eg(ChessPosition *pos, Square *square, void *param)
+int passed_eg(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, passed_eg, NULL);

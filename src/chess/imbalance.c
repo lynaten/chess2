@@ -1,6 +1,7 @@
 #include "header/chess/imbalance.h"
-int imbalance(ChessPosition *pos, Square *square, void *param)
+int imbalance(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (!square)
         return sum(pos, imbalance, NULL);
 
@@ -60,8 +61,9 @@ int imbalance(ChessPosition *pos, Square *square, void *param)
     return v;
 }
 
-int bishop_pair(ChessPosition *pos, Square *square, void *param)
+int bishop_pair(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (bishop_count(pos, NULL, NULL) < 2)
         return 0;
 
@@ -71,16 +73,12 @@ int bishop_pair(ChessPosition *pos, Square *square, void *param)
     return board(pos, square->x, square->y) == 'B' ? 1 : 0;
 }
 
-int imbalance_total(ChessPosition *pos)
+int imbalance_total(ChessPosition *pos1, ChessPosition *pos2, bool colorflipped)
 {
+    ChessPosition *pos = pos1;
     int v = 0;
-    ChessPosition flipped;
-    ChessPosition *pos2 = &flipped;
-    colorflip(pos, pos2);
-    pos->eval.imbalance = imbalance(pos, NULL, NULL) - imbalance(pos2, NULL, NULL);
-    v += pos->eval.imbalance;
-    pos->eval.bishop_pair = bishop_pair(pos, NULL, NULL) - bishop_pair(pos2, NULL, NULL);
-    v += pos->eval.bishop_pair;
+    v += imbalance(pos, NULL, NULL) - imbalance(pos2, NULL, NULL);
+    v += bishop_pair(pos, NULL, NULL) - bishop_pair(pos2, NULL, NULL);
 
     return v / 16;
 }

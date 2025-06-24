@@ -1,67 +1,72 @@
 #include "header/chess/helper.h"
 
 // Function to return the rank of a square
-int rank(ChessPosition *pos, Square *square, void *param)
+int rank(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (!square)
         return sum(pos, rank, NULL);
     return 8 - square->y;
 }
 
 // Function to return the file of a square
-int file(ChessPosition *pos, Square *square, void *param)
+int file(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (!square)
         return sum(pos, file, NULL);
     return 1 + square->x;
 }
 
 // Function to count the number of bishops
-int bishop_count(ChessPosition *pos, Square *square, void *param)
+int bishop_count(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (!square)
         return sum(pos, bishop_count, NULL);
     return board(pos, square->x, square->y) == 'B' ? 1 : 0;
 }
 
 // Function to count the number of queens
-int queen_count(ChessPosition *pos, Square *square, void *param)
+int queen_count(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (!square)
         return sum(pos, queen_count, NULL);
     return board(pos, square->x, square->y) == 'Q' ? 1 : 0;
 }
 
 // Function to count the number of pawns
-int pawn_count(ChessPosition *pos, Square *square, void *param)
+int pawn_count(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (!square)
         return sum(pos, pawn_count, NULL);
     return board(pos, square->x, square->y) == 'P' ? 1 : 0;
 }
 
 // Function to count the number of knights
-int knight_count(ChessPosition *pos, Square *square, void *param)
+int knight_count(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (!square)
         return sum(pos, knight_count, NULL);
     return board(pos, square->x, square->y) == 'N' ? 1 : 0;
 }
 
 // Function to count the number of rooks
-int rook_count(ChessPosition *pos, Square *square, void *param)
+int rook_count(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (!square)
         return sum(pos, rook_count, NULL);
     return board(pos, square->x, square->y) == 'R' ? 1 : 0;
 }
 
 // Function to determine if there are opposite bishops
-int opposite_bishops(ChessPosition *pos)
+int opposite_bishops(ChessPosition *pos1, ChessPosition *pos2, bool colorflipped)
 {
-    ChessPosition flipped;
-    ChessPosition *pos2 = &flipped;
-    colorflip(pos, pos2);
+    ChessPosition *pos = pos1;
     if (bishop_count(pos, NULL, NULL) != 1 || bishop_count(pos2, NULL, NULL) != 1)
     {
         return 0;
@@ -83,8 +88,9 @@ int opposite_bishops(ChessPosition *pos)
 }
 
 // Function to calculate the king's distance from a square
-int king_distance(ChessPosition *pos, Square *square, void *param)
+int king_distance(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (!square)
         return sum(pos, king_distance, NULL);
 
@@ -102,8 +108,9 @@ int king_distance(ChessPosition *pos, Square *square, void *param)
 }
 
 // Function to check if a square is in the king's ring
-int king_ring(ChessPosition *pos, Square *square, void *param)
+int king_ring(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     int full = *(int *)param;
     if (!square)
         return sum(pos, king_ring, param);
@@ -127,8 +134,9 @@ int king_ring(ChessPosition *pos, Square *square, void *param)
 }
 
 // Function to count the total number of pieces
-int piece_count(ChessPosition *pos, Square *square, void *param)
+int piece_count(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (!square)
         return sum(pos, piece_count, NULL);
 
@@ -137,14 +145,12 @@ int piece_count(ChessPosition *pos, Square *square, void *param)
 }
 
 // Function to calculate pawn attacks span
-int pawn_attacks_span(ChessPosition *pos, Square *square, void *param)
+int pawn_attacks_span(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = pos1;
     if (!square)
         return sum(pos, pawn_attacks_span, NULL);
 
-    ChessPosition flipped;
-    ChessPosition *pos2 = &flipped;
-    colorflip(pos, pos2);
     for (int y = 0; y < square->y; y++)
     {
         if (board(pos, square->x - 1, y) == 'p' && (y == square->y - 1 || (board(pos, square->x - 1, y + 1) != 'P' && !backward(pos2, &(Square){square->x - 1, 7 - y}, NULL))))

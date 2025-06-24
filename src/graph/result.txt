@@ -1,0 +1,253 @@
+Piece value bonus -
+Piece value mg
+Psqt bonus
+Psqt mg
+Imbalance
+Bishop count
+Bishop pair
+Imbalance total
+Isolated
+Doubled isolated
+Backward
+Doubled
+Supported
+Phalanx
+Connected
+Opposed
+Rank
+Connected bonus
+Weak unopposed pawn
+Blocked
+Pawns mg
+Pawn attacks span
+Outpost square
+Outpost
+Pinned direction
+Pinned
+Knight attack
+Bishop xray attack
+Reachable outpost
+Outpost total
+Minor behind pawn
+Pawn attack
+Bishop pawns
+Bishop xray pawns
+Rook on queen file
+King ring
+Rook xray attack
+Queen attack
+King attackers count
+Rook on king ring
+Bishop on king ring
+Rook on file
+Blockers for king
+Mobility area
+Mobility
+Trapped rook
+Weak queen
+Queen infiltration
+King distance
+King protector
+Long diagonal bishop
+Pieces mg
+Mobility bonus
+Mobility mg
+King attack
+Attack
+Weak enemies
+Hanging
+King threat
+Pawn push threat
+Safe pawn
+Threat safe pawn
+Queen count
+Queen attack diagonal
+Slider on queen
+Knight on queen
+Restricted
+Weak queen protection
+*Knight attack
+Minor threat
+Rook threat
+Threats mg
+Candidate passed
+Passed leverable
+Passed rank
+Passed block
+File
+Passed file
+Passed mg
+Non pawn material
+Space area
+Space
+King attackers weight
+King attacks
+Weak squares
+Weak bonus
+Check
+Safe check
+Unsafe checks
+Flank attack
+Flank defense
+Knight defender
+Strength square
+Storm square
+Shelter strength
+Shelter storm
+King danger
+Pawnless flank
+King mg
+Winnable
+Winnable total mg
+Middle game evaluation
+Piece value eg
+Psqt eg
+Weak lever
+Pawns eg
+Pieces eg
+Mobility eg
+Threats eg
+King proximity
+Passed eg
+King pawn distance
+Endgame shelter
+King eg
+Winnable total eg
+End game evaluation
+Phase
+Rule50
+Pawn count
+Knight count
+Opposite bishops
+Piece count
+Scale factor
+Tempo
+Main evaluation
+
+int pinned_direction(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int knight_attack(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int bishop_xray_attack(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int rook_xray_attack(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int queen_attack(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int pawn_attack(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int king_attack(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int attack(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int queen_attack_diagonal(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int pinned(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int main_evaluation(ChessPosition *pos1, ChessPosition *pos2, bool colorflipped);
+int middle_game_evaluation(ChessPosition *pos1, ChessPosition *pos2, bool nowinnablepos2, bool colorflipped);
+int end_game_evaluation(ChessPosition *pos1, ChessPosition *pos2, bool nowinnablepos2, bool colorflipped);
+int scale_factor(ChessPosition *pos1, ChessPosition *pos2, int eg, bool colorflipped);
+int phase(ChessPosition *pos1, ChessPosition *pos2, bool colorflipped);
+int tempo(ChessPosition *pos1, ChessPosition *pos2, Square *square, bool colorflipped);
+int rule(ChessPosition *pos1, ChessPosition *pos2, Square *square, bool colorflipped);
+int rank(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int file(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int bishop_count(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int queen_count(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int pawn_count(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int knight_count(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int rook_count(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int opposite_bishops(ChessPosition *pos1, ChessPosition *pos2, bool colorflipped);
+int king_distance(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int king_ring(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int piece_count(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int pawn_attacks_span(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int imbalance(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int bishop_pair(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int imbalance_total(ChessPosition *pos1, ChessPosition *pos2, bool colorflipped);
+int pawnless_flank(ChessPosition *pos1, ChessPosition *pos2, bool colorflipped);
+int king_pawn_distance(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int shelter_strength(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int shelter_storm(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int king_danger(ChessPosition *pos1, ChessPosition *pos2, bool colorflipped);
+int king_mg(ChessPosition *pos1, ChessPosition *pos2, bool colorflipped);
+int king_eg(ChessPosition *pos1, ChessPosition *pos2, bool colorflipped);
+int strength_square(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int storm_square(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int check(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int safe_check(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int king_attackers_count(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int king_attackers_weight(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int king_attacks(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int weak_bonus(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int weak_squares(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int unsafe_checks(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int knight_defender(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int endgame_shelter(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int blockers_for_king(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int flank_attack(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int flank_defense(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int non_pawn_material(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int piece_value_bonus(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int psqt_bonus(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int piece_value_mg(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int piece_value_eg(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int psqt_mg(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int psqt_eg(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int mobility_area(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int mobility(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int mobility_bonus(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int mobility_mg(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int mobility_eg(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int candidate_passed(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int king_proximity(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int passed_block(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int passed_file(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int passed_rank(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int passed_leverable(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int passed_mg(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int passed_eg(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int isolated(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int opposed(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int phalanx(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int supported(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int backward(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int doubled(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int connected(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int connected_bonus(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int weak_unopposed_pawn(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int weak_lever(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int blocked(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int doubled_isolated(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int pawns_mg(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int pawns_eg(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int outpost(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int outpost_square(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int reachable_outpost(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int minor_behind_pawn(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int bishop_pawns(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int rook_on_file(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int trapped_rook(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int weak_queen(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int king_protector(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int long_diagonal_bishop(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int outpost_total(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int rook_on_queen_file(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int bishop_xray_pawns(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int rook_on_king_ring(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int queen_infiltration(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int pieces_mg(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int pieces_eg(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int bishop_on_king_ring(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int space_area(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int space(ChessPosition *pos1, ChessPosition *pos2, bool colorflipped);
+int pieceCount(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int blockedCount(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int safe_pawn(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int threat_safe_pawn(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int weak_enemies(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int minor_threat(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int rook_threat(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int hanging(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int king_threat(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int pawn_push_threat(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int slider_on_queen(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int knight_on_queen(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int restricted(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int weak_queen_protection(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped);
+int threats_mg(ChessPosition *pos1, ChessPosition *pos2, bool colorflipped);
+int threats_eg(ChessPosition *pos1, ChessPosition *pos2, bool colorflipped);
+int winnable(ChessPosition *pos1, ChessPosition *pos2, bool colorflipped);
+int winnable_total_mg(ChessPosition *pos1, ChessPosition *pos2, void *param, bool colorflipped);
+int winnable_total_eg(ChessPosition *pos1, ChessPosition *pos2, void *param, bool colorflipped);

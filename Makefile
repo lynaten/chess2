@@ -10,6 +10,8 @@ TARGET = $(BIN_FOLDER)/chess_sim
 SRC_FOLDER = src
 CHESS_SRC = $(wildcard $(SRC_FOLDER)/chess/*.c)
 TREE_SRC  = $(wildcard $(SRC_FOLDER)/tree/*.c)
+GRAPH_SRC  = $(wildcard $(SRC_FOLDER)/graph/*.c)
+
 STDLIB_SRC = $(wildcard $(SRC_FOLDER)/stdlib/*.c)
 MAIN_SRC = $(SRC_FOLDER)/main.c
 

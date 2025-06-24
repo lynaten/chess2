@@ -1,7 +1,8 @@
 #include "header/chess/piece.h"
 
-int outpost(ChessPosition *pos, Square *square, void *param)
+int outpost(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, outpost, NULL);
@@ -18,8 +19,9 @@ int outpost(ChessPosition *pos, Square *square, void *param)
     return 1;
 }
 
-int outpost_square(ChessPosition *pos, Square *square, void *param)
+int outpost_square(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, outpost_square, NULL);
@@ -41,8 +43,9 @@ int outpost_square(ChessPosition *pos, Square *square, void *param)
     return 1;
 }
 
-int reachable_outpost(ChessPosition *pos, Square *square, void *param)
+int reachable_outpost(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, reachable_outpost, NULL);
@@ -71,8 +74,9 @@ int reachable_outpost(ChessPosition *pos, Square *square, void *param)
     return v;
 }
 
-int minor_behind_pawn(ChessPosition *pos, Square *square, void *param)
+int minor_behind_pawn(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, minor_behind_pawn, NULL);
@@ -89,8 +93,9 @@ int minor_behind_pawn(ChessPosition *pos, Square *square, void *param)
     return 1;
 }
 
-int bishop_pawns(ChessPosition *pos, Square *square, void *param)
+int bishop_pawns(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, bishop_pawns, NULL);
@@ -118,8 +123,9 @@ int bishop_pawns(ChessPosition *pos, Square *square, void *param)
     return v * (blocked + (pawn_attack(pos, square, NULL) > 0 ? 0 : 1));
 }
 
-int rook_on_file(ChessPosition *pos, Square *square, void *param)
+int rook_on_file(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, rook_on_file, NULL);
@@ -143,8 +149,9 @@ int rook_on_file(ChessPosition *pos, Square *square, void *param)
     return open + 1;
 }
 
-int trapped_rook(ChessPosition *pos, Square *square, void *param)
+int trapped_rook(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, trapped_rook, NULL);
@@ -180,8 +187,9 @@ int trapped_rook(ChessPosition *pos, Square *square, void *param)
     return 1;
 }
 
-int weak_queen(ChessPosition *pos, Square *square, void *param)
+int weak_queen(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, weak_queen, NULL);
@@ -212,8 +220,9 @@ int weak_queen(ChessPosition *pos, Square *square, void *param)
     return 0;
 }
 
-int king_protector(ChessPosition *pos, Square *square, void *param)
+int king_protector(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, king_protector, NULL);
@@ -226,8 +235,9 @@ int king_protector(ChessPosition *pos, Square *square, void *param)
     return king_distance(pos, square, NULL);
 }
 
-int long_diagonal_bishop(ChessPosition *pos, Square *square, void *param)
+int long_diagonal_bishop(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, long_diagonal_bishop, NULL);
@@ -257,8 +267,9 @@ int long_diagonal_bishop(ChessPosition *pos, Square *square, void *param)
     return 1;
 }
 
-int outpost_total(ChessPosition *pos, Square *square, void *param)
+int outpost_total(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, outpost_total, NULL);
@@ -315,8 +326,9 @@ int outpost_total(ChessPosition *pos, Square *square, void *param)
     return knight ? 4 : 3;
 }
 
-int rook_on_queen_file(ChessPosition *pos, Square *square, void *param)
+int rook_on_queen_file(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, rook_on_queen_file, NULL);
@@ -335,8 +347,9 @@ int rook_on_queen_file(ChessPosition *pos, Square *square, void *param)
     return 0;
 }
 
-int bishop_xray_pawns(ChessPosition *pos, Square *square, void *param)
+int bishop_xray_pawns(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, bishop_xray_pawns, NULL);
@@ -360,8 +373,9 @@ int bishop_xray_pawns(ChessPosition *pos, Square *square, void *param)
     return count;
 }
 
-int rook_on_king_ring(ChessPosition *pos, Square *square, void *param)
+int rook_on_king_ring(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, rook_on_king_ring, NULL);
@@ -385,8 +399,9 @@ int rook_on_king_ring(ChessPosition *pos, Square *square, void *param)
     return 0;
 }
 
-int queen_infiltration(ChessPosition *pos, Square *square, void *param)
+int queen_infiltration(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, queen_infiltration, NULL);
@@ -411,8 +426,9 @@ int queen_infiltration(ChessPosition *pos, Square *square, void *param)
     return 1;
 }
 
-int pieces_mg(ChessPosition *pos, Square *square, void *param)
+int pieces_mg(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, pieces_mg, NULL);
@@ -438,8 +454,9 @@ int pieces_mg(ChessPosition *pos, Square *square, void *param)
     return v;
 }
 
-int pieces_eg(ChessPosition *pos, Square *square, void *param)
+int pieces_eg(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, pieces_eg, NULL);
@@ -462,8 +479,9 @@ int pieces_eg(ChessPosition *pos, Square *square, void *param)
     return v;
 }
 
-int bishop_on_king_ring(ChessPosition *pos, Square *square, void *param)
+int bishop_on_king_ring(ChessPosition *pos1, ChessPosition *pos2, Square *square, void *param, bool colorflipped)
 {
+    ChessPosition *pos = colorflipped ? pos2 : pos1;
     if (square == NULL)
     {
         return sum(pos, bishop_on_king_ring, NULL);
