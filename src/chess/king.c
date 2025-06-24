@@ -40,6 +40,8 @@ int king_file(ChessPosition *pos, Square *square, void *param)
 
 int pawnless_flank(ChessPosition *pos)
 {
+    pawn_file_count(pos,NULL,NULL);
+    king_file(pos,NULL,NULL);
     int sum = 0;
     int kx = pos->eval.kx;
     int *pawns = pos->eval.pawns_list;

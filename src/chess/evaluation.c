@@ -64,50 +64,54 @@ int main_evaluation(ChessPosition *pos)
     return v;
 }
 
-int main1_evaluation(ChessPosition *pos)
-{
-}
-
 int middle_game_evaluation(ChessPosition *pos, bool nowinnable)
 {
     int v = 0;
     ChessPosition flipped;
     ChessPosition *pos2 = &flipped;
-    colorflip(pos, pos2);
+    colorflip(pos, pos2); // pos2 sekarang adalah board yang sama tapi warnanya dibalik
 
     // Piece value
     int white_piece_value = piece_value_mg(pos, NULL, NULL);
     int black_piece_value = piece_value_mg(pos2, NULL, NULL);
     pos->eval.piece_value = white_piece_value - black_piece_value;
+    pos2->eval.piece_value = black_piece_value - white_piece_value; // Nilai terbalik untuk pos2
     v += white_piece_value - black_piece_value;
 
     // Piece-square table
     int white_psqt = psqt_mg(pos, NULL, NULL);
     int black_psqt = psqt_mg(pos2, NULL, NULL);
     pos->eval.psqt = white_psqt - black_psqt;
+    pos2->eval.psqt = black_psqt - white_psqt; // Nilai terbalik untuk pos2
     v += white_psqt - black_psqt;
 
-    // Imbalance
-    int imbalance = imbalance_total(pos);
-    v += imbalance;
+    // Imbalance - Ini adalah nilai absolut, jadi sama untuk kedua sisi, tapi untuk v, itu relatif ke sisi saat ini
+    int imbalance_val = imbalance_total(pos); // Hitung sekali
+    pos->eval.imbalance = imbalance_val;
+    pos2->eval.imbalance = imbalance_val; // Imbalance biasanya simetris
+    v += imbalance_val; // Tambahkan ke total evaluasi
 
     // Pawn structure
     int white_pawns = pawns_mg(pos, NULL, NULL);
     int black_pawns = pawns_mg(pos2, NULL, NULL);
     pos->eval.pawns = white_pawns - black_pawns;
+    pos2->eval.pawns = black_pawns - white_pawns; // Nilai terbalik untuk pos2
     v += white_pawns - black_pawns;
 
     // Pieces
     int white_pieces = pieces_mg(pos, NULL, NULL);
     int black_pieces = pieces_mg(pos2, NULL, NULL);
     pos->eval.pieces = white_pieces - black_pieces;
+    pos2->eval.pieces = black_pieces - white_pieces; // Nilai terbalik untuk pos2
     v += white_pieces - black_pieces;
 
     // Mobility
     int white_mobility = mobility_mg(pos, NULL, NULL);
     int black_mobility = mobility_mg(pos2, NULL, NULL);
-    pos->eval.mobility_white = white_mobility;
-    pos->eval.mobility_black = black_mobility;
+    pos->eval.mobility_white = white_mobility; // Simpan nilai mentah putih
+    pos->eval.mobility_black = black_mobility; // Simpan nilai mentah hitam
+    pos2->eval.mobility_white = black_mobility; // Untuk pos2, mobility putih adalah mobility_black asli
+    pos2->eval.mobility_black = white_mobility; // Untuk pos2, mobility hitam adalah mobility_white asli
     v += white_mobility - black_mobility;
 
     // Threats
@@ -119,6 +123,7 @@ int middle_game_evaluation(ChessPosition *pos, bool nowinnable)
     int white_passed = passed_mg(pos, NULL, NULL);
     int black_passed = passed_mg(pos2, NULL, NULL);
     pos->eval.passed = white_passed - black_passed;
+    pos2->eval.passed = black_passed - white_passed; // Nilai terbalik untuk pos2
     v += white_passed - black_passed;
 
     // Space
@@ -134,9 +139,17 @@ int middle_game_evaluation(ChessPosition *pos, bool nowinnable)
     // Winnable positions
     if (!nowinnable)
     {
-        int winnable = winnable_total_mg(pos, &(int){v});
-        v += winnable;
+        // winnable_total_mg mungkin juga harus menyimpan breakdown ke pos->eval
+        // Jika winnable_total_mg juga menggunakan pos dan pos2 secara internal,
+        // Anda mungkin perlu lebih teliti. Namun, untuk contoh ini, saya asumsikan
+        // itu hanya mengembalikan nilai tunggal berdasarkan 'pos'
+        int winnable_val = winnable_total_mg(pos, &(int){v});
+        v += winnable_val;
     }
+
+    // Pastikan pos->evaluationBar juga diatur
+    pos->evaluationBar = v;
+    pos2->evaluationBar = -v; // Untuk pos2, nilai total evaluasi adalah kebalikannya
 
     return v;
 }

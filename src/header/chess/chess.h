@@ -137,13 +137,9 @@ typedef struct
     int safe_check1;           // none
     int safe_check2;           // none
     int safe_check3;           // none
-    int shelter_strength;      // none // d ok
-    int shelter_storm;         // none // d ok
-    int flank_attack;          // none // d ok
     int pawns_list[8];         // none
     int kx;                    // none
     int candidate_passed;      // none
-    int non_pawn_material;     // none // d
     int phase;
     int rule50;
     int scale_factor;
