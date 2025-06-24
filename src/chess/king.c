@@ -4,6 +4,7 @@ int pawn_file_count(ChessPosition *pos, Square *square, void *param)
 {
     if (square == NULL)
     {
+        memset(pos->eval.pawns_list, 0, sizeof(pos->eval.pawns_list));
         return sum(pos, pawn_file_count, NULL);
     }
 
@@ -40,6 +41,8 @@ int king_file(ChessPosition *pos, Square *square, void *param)
 
 int pawnless_flank(ChessPosition *pos)
 {
+    pawn_file_count(pos,NULL,NULL);
+    king_file(pos,NULL,NULL);
     int sum = 0;
     int kx = pos->eval.kx;
     int *pawns = pos->eval.pawns_list;
@@ -176,68 +179,152 @@ int shelter_storm(ChessPosition *pos, Square *square, void *param)
 }
 
 #include <stdio.h>
+#include <time.h> // Include this header
 
 int king_danger(ChessPosition *pos)
 {
+    clock_t start_total_king_danger = clock(); // Start timer for total king_danger
 
-    // Individual components
+    // Note: 'v' is redefined here. Your original king_mg had a 'v' as well.
+    // Ensure you resolve potential scope issues or variable naming conflicts.
+    // I'll keep it as 'res_v' for result value to avoid conflict.
+    int res_v = 0;
+
     ChessPosition flipped;
     ChessPosition *pos2 = &flipped;
+
+    clock_t start_segment;
+    double elapsed_segment;
+
+    // Time colorflip
+    start_segment = clock();
     colorflip(pos, pos2);
+    elapsed_segment = (double)(clock() - start_segment) * 1000.0 / CLOCKS_PER_SEC;
+    printf("[DEBUG-TIME-KING_DANGER] colorflip_inside_kd: %.3f ms\n", elapsed_segment);
+
+
+    // king_attackers_count
+    start_segment = clock();
     int count = king_attackers_count(pos, NULL, NULL);
     pos->eval.king_attackers_count = count;
+    elapsed_segment = (double)(clock() - start_segment) * 1000.0 / CLOCKS_PER_SEC;
+    printf("[DEBUG-TIME-KING_DANGER] king_attackers_count: %.3f ms\n", elapsed_segment);
 
+
+    // king_attackers_weight
+    start_segment = clock();
     int weight = king_attackers_weight(pos, NULL, NULL);
     pos->eval.king_attackers_weight = weight;
+    elapsed_segment = (double)(clock() - start_segment) * 1000.0 / CLOCKS_PER_SEC;
+    printf("[DEBUG-TIME-KING_DANGER] king_attackers_weight: %.3f ms\n", elapsed_segment);
 
+
+    // king_attacks
+    start_segment = clock();
     int kingAttacks = king_attacks(pos, NULL, NULL);
     pos->eval.king_attacks = kingAttacks;
+    elapsed_segment = (double)(clock() - start_segment) * 1000.0 / CLOCKS_PER_SEC;
+    printf("[DEBUG-TIME-KING_DANGER] king_attacks: %.3f ms\n", elapsed_segment);
 
+
+    // weak_bonus
+    start_segment = clock();
     int weak = weak_bonus(pos, NULL, NULL);
     pos->eval.weak_bonus = weak;
+    elapsed_segment = (double)(clock() - start_segment) * 1000.0 / CLOCKS_PER_SEC;
+    printf("[DEBUG-TIME-KING_DANGER] weak_bonus: %.3f ms\n", elapsed_segment);
 
-    int unsafeChecks = unsafe_checks(pos, NULL, NULL);
+
+    // unsafe_checks
+    start_segment = clock();
+    int unsafeChecks = unsafe_checks(pos, NULL, NULL); // Note: unsafe_checks returns bool, stored as int
     pos->eval.unsafe_checks = unsafeChecks;
+    elapsed_segment = (double)(clock() - start_segment) * 1000.0 / CLOCKS_PER_SEC;
+    printf("[DEBUG-TIME-KING_DANGER] unsafe_checks: %.3f ms\n", elapsed_segment);
 
+
+    // blockers_for_king
+    start_segment = clock();
     int blockersForKing = blockers_for_king(pos, NULL, NULL);
     pos->eval.blockers_for_king = blockersForKing;
+    elapsed_segment = (double)(clock() - start_segment) * 1000.0 / CLOCKS_PER_SEC;
+    printf("[DEBUG-TIME-KING_DANGER] blockers_for_king: %.3f ms\n", elapsed_segment);
 
+
+    // flank_attack
+    start_segment = clock();
     int kingFlankAttack = flank_attack(pos, NULL, NULL);
     pos->eval.flank_attack = kingFlankAttack;
+    elapsed_segment = (double)(clock() - start_segment) * 1000.0 / CLOCKS_PER_SEC;
+    printf("[DEBUG-TIME-KING_DANGER] flank_attack: %.3f ms\n", elapsed_segment);
 
+
+    // flank_defense
+    start_segment = clock();
     int kingFlankDefense = flank_defense(pos, NULL, NULL);
     pos->eval.flank_defense = kingFlankDefense;
+    elapsed_segment = (double)(clock() - start_segment) * 1000.0 / CLOCKS_PER_SEC;
+    printf("[DEBUG-TIME-KING_DANGER] flank_defense: %.3f ms\n", elapsed_segment);
 
+
+    // queen_count
+    start_segment = clock();
     int noQueen = (queen_count(pos, NULL, NULL) > 0 ? 0 : 1);
-    pos->eval.queen_count = queen_count(pos, NULL, NULL);
+    pos->eval.queen_count = queen_count(pos, NULL, NULL); // Call again or store result of first call
+    elapsed_segment = (double)(clock() - start_segment) * 1000.0 / CLOCKS_PER_SEC;
+    printf("[DEBUG-TIME-KING_DANGER] queen_count: %.3f ms\n", elapsed_segment);
 
+
+    // knight_defender
+    start_segment = clock();
     int knightDefender = knight_defender(pos2, NULL, NULL);
     pos->eval.knight_defender = knightDefender;
+    elapsed_segment = (double)(clock() - start_segment) * 1000.0 / CLOCKS_PER_SEC;
+    printf("[DEBUG-TIME-KING_DANGER] knight_defender: %.3f ms\n", elapsed_segment);
 
+
+    // shelter_strength
+    start_segment = clock();
     int shelterStrength = shelter_strength(pos, NULL, NULL);
     pos->eval.shelter_strength = shelterStrength;
+    elapsed_segment = (double)(clock() - start_segment) * 1000.0 / CLOCKS_PER_SEC;
+    printf("[DEBUG-TIME-KING_DANGER] shelter_strength: %.3f ms\n", elapsed_segment);
 
+
+    // shelter_storm
+    start_segment = clock();
     int shelterStorm = shelter_storm(pos, NULL, NULL);
     pos->eval.shelter_storm = shelterStorm;
+    elapsed_segment = (double)(clock() - start_segment) * 1000.0 / CLOCKS_PER_SEC;
+    printf("[DEBUG-TIME-KING_DANGER] shelter_storm: %.3f ms\n", elapsed_segment);
 
+
+    // mobility (assuming these are populated by mobility_mg previously)
+    // No timing needed if just accessing already-cached values.
+    start_segment = clock(); // Grouping these accesses
     int mobilityWhite = pos->eval.mobility_white;
-
     int mobilityBlack = pos->eval.mobility_black;
+    elapsed_segment = (double)(clock() - start_segment) * 1000.0 / CLOCKS_PER_SEC;
+    printf("[DEBUG-TIME-KING_DANGER] mobility_access: %.3f ms\n", elapsed_segment);
 
+
+    // safe_check family
+    start_segment = clock();
     int safeCheck3 = safe_check(pos, NULL, &(int){3});
     pos->eval.safe_check3 = safeCheck3;
-
     int safeCheck2 = safe_check(pos, NULL, &(int){2});
     pos->eval.safe_check2 = safeCheck2;
-
     int safeCheck1 = safe_check(pos, NULL, &(int){1});
     pos->eval.safe_check1 = safeCheck1;
-
     int safeCheck0 = safe_check(pos, NULL, &(int){0});
     pos->eval.safe_check0 = safeCheck0;
+    elapsed_segment = (double)(clock() - start_segment) * 1000.0 / CLOCKS_PER_SEC;
+    printf("[DEBUG-TIME-KING_DANGER] safe_check_all: %.3f ms\n", elapsed_segment);
 
-    // Final calculation
-    int v = count * weight +
+
+    // Final calculation (arithmetic, should be negligible time)
+    start_segment = clock();
+    res_v = count * weight +
             69 * kingAttacks +
             185 * weak -
             100 * (knightDefender > 0) +
@@ -250,21 +337,31 @@ int king_danger(ChessPosition *pos)
             mobilityWhite -
             mobilityBlack +
             37 +
-            (772 * MIN(safeCheck3, 1.45)) +
+            (772 * MIN(safeCheck3, 1.45)) + // MIN for float and int can be issue, ensure 1.45 is cast to int or use fmin
             (1084 * MIN(safeCheck2, 1.75)) +
             (645 * MIN(safeCheck1, 1.50)) +
             (792 * MIN(safeCheck0, 1.62));
+    elapsed_segment = (double)(clock() - start_segment) * 1000.0 / CLOCKS_PER_SEC;
+    printf("[DEBUG-TIME-KING_DANGER] final_calc: %.3f ms\n", elapsed_segment);
+
 
     // Final result
-    if (v > 100)
+    if (res_v > 100)
     {
-        return v;
+        return res_v;
     }
     else
     {
         return 0;
     }
+
+    double total_king_danger_time = (double)(clock() - start_total_king_danger) * 1000.0 / CLOCKS_PER_SEC;
+    printf("[DEBUG-TIME-KING_DANGER] Total king_danger: %.3f ms\n", total_king_danger_time);
+
+    return res_v; // Ensure a return value at the end of the function.
 }
+
+
 
 int king_mg(ChessPosition *pos)
 {

@@ -1,0 +1,125 @@
+Piece value bonus
+Piece value mg
+Psqt bonus
+Psqt mg
+Imbalance
+Bishop count
+Bishop pair
+Imbalance total
+Isolated
+Doubled isolated
+Backward
+Doubled
+Supported
+Phalanx
+Connected
+Opposed
+Rank
+Connected bonus
+Weak unopposed pawn
+Blocked
+Pawns mg
+Pawn attacks span
+Outpost square
+Outpost
+Pinned direction
+Pinned
+Knight attack
+Bishop xray attack
+Reachable outpost
+Outpost total
+Minor behind pawn
+Pawn attack
+Bishop pawns
+Bishop xray pawns
+Rook on queen file
+King ring
+Rook xray attack
+Queen attack
+King attackers count
+Rook on king ring
+Bishop on king ring
+Rook on file
+Blockers for king
+Mobility area
+Mobility
+Trapped rook
+Weak queen
+Queen infiltration
+King distance
+King protector
+Long diagonal bishop
+Pieces mg
+Mobility bonus
+Mobility mg
+King attack
+Attack
+Weak enemies
+Hanging
+King threat
+Pawn push threat
+Safe pawn
+Threat safe pawn
+Queen count
+Queen attack diagonal
+Slider on queen
+Knight on queen
+Restricted
+Weak queen protection
+*Knight attack
+Minor threat
+Rook threat
+Threats mg
+Candidate passed
+Passed leverable
+Passed rank
+Passed block
+File
+Passed file
+Passed mg
+Non pawn material
+Space area
+Space
+King attackers weight
+King attacks
+Weak squares
+Weak bonus
+Check
+Safe check
+Unsafe checks
+Flank attack
+Flank defense
+Knight defender
+Strength square
+Storm square
+Shelter strength
+Shelter storm
+King danger
+Pawnless flank
+King mg
+Winnable
+Winnable total mg
+Middle game evaluation
+Piece value eg
+Psqt eg
+Weak lever
+Pawns eg
+Pieces eg
+Mobility eg
+Threats eg
+King proximity
+Passed eg
+King pawn distance
+Endgame shelter
+King eg
+Winnable total eg
+End game evaluation
+Phase
+Rule50
+Pawn count
+Knight count
+Opposite bishops
+Piece count
+Scale factor
+Tempo
+Main evaluation

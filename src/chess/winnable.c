@@ -55,6 +55,7 @@ int winnable_total_mg(ChessPosition *pos, void *param)
     // Calculate winnable_value
     int winnable_value = winnable(pos) + 50;
 
+
     // Calculate bounded_value
     int bounded_value = (winnable_value > 0) ? 0 : -abs(v);
 

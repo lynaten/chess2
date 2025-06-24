@@ -128,227 +128,158 @@ int alphabetToIndex(char letter)
     return letter - 'a';
 }
 
-#include <stdio.h>
-#include <stdbool.h>
-#include <ctype.h> // for toupper, tolower, etc.
+// Helper to update castling rights based on moves
+static void update_castling_rights_after_move(ChessPosition *pos, Move m, char actual_captured_piece_on_board) {
+    char moved_piece_upper = toupper(m.piece_moved);
+    char captured_piece_upper = toupper(actual_captured_piece_on_board); // Use actual piece for capture checks
 
-void move(Move inputMove, ChessPosition *pos)
-{
-    // Convert from algebraic-like input to array indexes
-    int fromFile = inputMove.before.x; // 'a' -> 0, 'h' -> 7
-    int fromRank = inputMove.before.y; // rank 1 => row 7, rank 8 => row 0
-    int toFile = inputMove.after.x;
-    int toRank = inputMove.after.y;
-
-    // 1) Identify the moving piece
-    char piece = pos->b[fromFile][fromRank];
-
-    // 2) Identify if we're capturing a piece
-    char captured = pos->b[toFile][toRank]; // occupant of the 'to' square BEFORE we move
-
-    pos->lastMove = inputMove;
-    // ------------------------------------------
-    // Special Case A: Castling
-    // ------------------------------------------
-    // Castling is recognized by the king moving exactly 2 squares left/right from its start.
-    // White King normally at (4,7). Black King at (4,0).
-    // If it's the king, check if abs(toFile - fromFile) == 2 and same rank.
-
-    bool castling = false;
-    if ((piece == 'K' && fromFile == 4 && fromRank == 7 && fromRank == toRank && (toFile == 2 || toFile == 6)) ||
-        (piece == 'k' && fromFile == 4 && fromRank == 0 && fromRank == toRank && (toFile == 2 || toFile == 6)))
-    {
-        castling = true;
-    }
-
-    // ------------------------------------------
-    // 3) Execute the move on the board (initially)
-    // ------------------------------------------
-    pos->b[toFile][toRank] = piece;
-    pos->b[fromFile][fromRank] = '-';
-
-    // ------------------------------------------
-    // Special Case A continued: Actually place the rook for castling
-    // ------------------------------------------
-    if (castling)
-    {
-        // If White’s King
-        if (piece == 'K')
-        {
-            // King is going from e1 => c1 or g1
-            // e1 is (4,7). c1 is (2,7). g1 is (6,7).
-            if (toFile == 2)
-            {
-                // Queenside castling: Move the rook from a1 => d1
-                // a1 => (0,7), d1 => (3,7)
-                pos->b[3][7] = 'R';
-                pos->b[0][7] = '-';
-            }
-            else
-            {
-                // Kingside castling: Move the rook from h1 => f1
-                // h1 => (7,7), f1 => (5,7)
-                pos->b[5][7] = 'R';
-                pos->b[7][7] = '-';
-            }
-        }
-        // If Black’s King
-        else if (piece == 'k')
-        {
-            // e8 => c8 or g8
-            // e8 => (4,0), c8 => (2,0), g8 => (6,0)
-            if (toFile == 2)
-            {
-                // Queenside castling: Move the rook from a8 => d8
-                // a8 => (0,0), d8 => (3,0)
-                pos->b[3][0] = 'r';
-                pos->b[0][0] = '-';
-            }
-            else
-            {
-                // Kingside castling: Move the rook from h8 => f8
-                // h8 => (7,0), f8 => (5,0)
-                pos->b[5][0] = 'r';
-                pos->b[7][0] = '-';
-            }
+    // If a king moves, that side loses all castling rights
+    if (moved_piece_upper == 'K') {
+        if (m.piece_moved == 'K') { // White King
+            pos->c[0] = false; // White King-side
+            pos->c[1] = false; // White Queen-side
+        } else { // Black King
+            pos->c[2] = false; // Black King-side
+            pos->c[3] = false; // Black Queen-side
         }
     }
 
-    // ------------------------------------------
-    // 4) Update castling rights
-    // ------------------------------------------
-    // If a king moves at all, remove castling for that side.
-    // If a rook moves from its start, remove castling for that side.
-    // Also if you capture an enemy rook on a corner, remove that side's castling.
-    if (piece == 'K')
-    {
-        pos->c[0] = false; // white kingside
-        pos->c[1] = false; // white queenside
-    }
-    else if (piece == 'k')
-    {
-        pos->c[2] = false; // black kingside
-        pos->c[3] = false; // black queenside
-    }
-    else if (piece == 'R')
-    {
-        if (fromFile == 0 && fromRank == 7)
-            pos->c[1] = false; // white queenside
-        if (fromFile == 7 && fromRank == 7)
-            pos->c[0] = false; // white kingside
-    }
-    else if (piece == 'r')
-    {
-        if (fromFile == 0 && fromRank == 0)
-            pos->c[3] = false; // black queenside
-        if (fromFile == 7 && fromRank == 0)
-            pos->c[2] = false; // black kingside
+    // If a rook moves from its original square, that side loses specific castling right
+    if (moved_piece_upper == 'R') {
+        if (m.piece_moved == 'R') { // White Rook
+            if (m.before.x == 0 && m.before.y == 7) pos->c[1] = false; // White Q-side rook (a1)
+            if (m.before.x == 7 && m.before.y == 7) pos->c[0] = false; // White K-side rook (h1)
+        } else { // Black Rook
+            if (m.before.x == 0 && m.before.y == 0) pos->c[3] = false; // Black Q-side rook (a8)
+            if (m.before.x == 7 && m.before.y == 0) pos->c[2] = false; // Black K-side rook (h8)
+        }
     }
 
-    // *Additionally*, if we captured a rook in its original corner, remove that side’s castling.
-    if (captured == 'R')
-    {
-        // White rook captured on A1 => remove whiteQueenside, or on H1 => remove whiteKingside
-        if (toFile == 0 && toRank == 7)
-            pos->c[1] = false;
-        if (toFile == 7 && toRank == 7)
-            pos->c[0] = false;
+    // If an enemy rook is captured on its original corner square, the *opponent* loses castling right
+    // (We use 'actual_captured_piece_on_board' here to reflect what was truly captured)
+    if (captured_piece_upper == 'R') {
+        if (actual_captured_piece_on_board == 'r') { // Black Rook captured
+            if (m.after.x == 0 && m.after.y == 0) pos->c[3] = false; // Black Q-side rook captured at a8
+            if (m.after.x == 7 && m.after.y == 0) pos->c[2] = false; // Black K-side rook captured at h8
+        } else if (actual_captured_piece_on_board == 'R') { // White Rook captured
+            if (m.after.x == 0 && m.after.y == 7) pos->c[1] = false; // White Q-side rook captured at a1
+            if (m.after.x == 7 && m.after.y == 7) pos->c[0] = false; // White K-side rook captured at h1
+        }
     }
-    else if (captured == 'r')
-    {
-        // Black rook captured on A8 => remove blackQueenside, or on H8 => remove blackKingside
-        if (toFile == 0 && toRank == 0)
-            pos->c[3] = false;
-        if (toFile == 7 && toRank == 0)
-            pos->c[2] = false;
-    }
+}
 
-    // ------------------------------------------
-    // 5) Handle en passant
-    // ------------------------------------------
-    //
-    // (a) Clear default: no en passant
+// Helper to update en passant target square
+static void update_en_passant_target(ChessPosition *pos, Move m) {
+    // (a) Clear default: no en passant target for the next turn unless a pawn makes a double move
     pos->e[0] = -1;
     pos->e[1] = -1;
 
-    // (b) If a pawn moves two squares forward from its start, set the en passant target.
-    if (piece == 'P' && fromRank == 6 && toRank == 4)
-    {
-        pos->e[0] = toFile;
-        pos->e[1] = 5;
-    }
-    else if (piece == 'p' && fromRank == 1 && toRank == 3)
-    {
-        pos->e[0] = toFile;
-        pos->e[1] = 2;
-    }
+    char moved_piece_upper = toupper(m.piece_moved);
 
-    // (c) En passant *capture* detection:
-    // If a pawn moves diagonally onto an empty square, that means it's an en passant capture.
-    // White en passant: from rank=3 to rank=2, black’s pawn must have been on (toFile, 3).
-    bool wasEmptyCapture = (captured == '-' && (piece == 'P' || piece == 'p') && (toFile != fromFile));
-    if (wasEmptyCapture)
-    {
-        // White capturing black en passant
-        if (piece == 'P' && fromRank == 3 && toRank == 2)
-        {
-            // The captured black pawn is behind the 'to' square => (toFile, 3)
-            pos->b[toFile][3] = '-';
-        }
-        // Black capturing white en passant
-        else if (piece == 'p' && fromRank == 4 && toRank == 5)
-        {
-            // The captured white pawn was behind the 'to' square => (toFile, 4)
-            pos->b[toFile][4] = '-';
+    // (b) If a pawn moves two squares forward, set the en passant target.
+    if (moved_piece_upper == 'P') {
+        if (m.piece_moved == 'P' && m.before.y == 6 && m.after.y == 4) { // White pawn moves from rank 2 (y=6) to rank 4 (y=4)
+            pos->e[0] = m.after.x;
+            pos->e[1] = 5; // Target square is behind the pawn on rank 3 (y=5)
+        } else if (m.piece_moved == 'p' && m.before.y == 1 && m.after.y == 3) { // Black pawn moves from rank 7 (y=1) to rank 5 (y=3)
+            pos->e[0] = m.after.x;
+            pos->e[1] = 2; // Target square is behind the pawn on rank 6 (y=2)
         }
     }
+}
 
-    // ------------------------------------------
-    // 6) Promotion
-    // ------------------------------------------
-    // If a white pawn hits rank=0 or black pawn hits rank=7, we promote to a queen by default.
-    if (piece == 'P' && toRank == 0)
+
+void move(Move inputMove, ChessPosition *pos)
+{
+    pos->lastMove = inputMove;
+
+    char actual_captured_piece_on_board = pos->b[inputMove.after.x][inputMove.after.y];
+
+    pos->b[inputMove.after.x][inputMove.after.y] = inputMove.piece_moved;
+    pos->b[inputMove.before.x][inputMove.before.y] = '-';
+
+    if (inputMove.is_castling)
     {
-        // By default, let’s do a queen promotion
-        pos->b[toFile][toRank] = 'Q';
+        if (inputMove.piece_moved == 'K') // White King
+        {
+            if (inputMove.after.x == 6) // Kingside (e1-g1, rook h1-f1)
+            {
+                pos->b[5][7] = 'R'; // Move rook from h1 (7,7) to f1 (5,7)
+                pos->b[7][7] = '-'; // Clear h1
+            }
+            else if (inputMove.after.x == 2) // Queenside (e1-c1, rook a1-d1)
+            {
+                pos->b[3][7] = 'R'; // Move rook from a1 (0,7) to d1 (3,7)
+                pos->b[0][7] = '-'; // Clear a1
+            }
+        }
+        else if (inputMove.piece_moved == 'k') // Black King
+        {
+            if (inputMove.after.x == 6) // Kingside (e8-g8, rook h8-f8)
+            {
+                pos->b[5][0] = 'r'; // Move rook from h8 (7,0) to f8 (5,0)
+                pos->b[7][0] = '-'; // Clear h8
+            }
+            else if (inputMove.after.x == 2) // Queenside (e8-c8, rook a8-d8)
+            {
+                pos->b[3][0] = 'r'; // Move rook from a8 (0,0) to d8 (3,0)
+                pos->b[0][0] = '-'; // Clear a8
+            }
+        }
     }
-    else if (piece == 'p' && toRank == 7)
+
+    if (inputMove.is_en_passant)
     {
-        pos->b[toFile][toRank] = 'q';
+        if (inputMove.piece_moved == 'P') // White pawn captured black pawn
+        {
+            pos->b[inputMove.after.x][inputMove.after.y + 1] = '-'; // e.g., if White to d6 (x=3,y=2), remove pawn at d5 (x=3,y=3)
+        }
+        else if (inputMove.piece_moved == 'p') // Black pawn captured white pawn
+        {
+            pos->b[inputMove.after.x][inputMove.after.y - 1] = '-'; // e.g., if Black to d3 (x=3,y=5), remove pawn at d4 (x=3,y=4)
+        }
     }
 
-    // ------------------------------------------
-    // 7) Update half‐move clock
-    // ------------------------------------------
-    bool isPawn = (piece == 'P' || piece == 'p');
-    bool isCapture = (captured != '-'); // was there something on the target square?
-
-    // Pawn move OR capture => reset halfmove
-    // (Note that en passant captures also get handled here because it's still a capture.)
-    if (isPawn || isCapture)
+    if (inputMove.promotion_piece != '\0')
     {
-        pos->m[0] = 0;
+        pos->b[inputMove.after.x][inputMove.after.y] = inputMove.promotion_piece;
+    }
+
+    update_castling_rights_after_move(pos, inputMove, actual_captured_piece_on_board);
+    update_en_passant_target(pos, inputMove);
+
+    bool isPawnMove = (toupper(inputMove.piece_moved) == 'P');
+    bool isCapture = (inputMove.captured_piece != '-'); // Use the captured_piece from the Move struct
+
+    if (isPawnMove || isCapture)
+    {
+        pos->m[0] = 0; // Reset halfmove clock
     }
     else
     {
-        pos->m[0]++;
+        pos->m[0]++; // Increment halfmove clock
     }
 
-    // ------------------------------------------
-    // 8) Flip side to move
-    // ------------------------------------------
     pos->w = !pos->w;
-
-    // If we've just changed pos->w to true, that means Black has completed a move => increment fullmove
-    if (pos->w)
+    if (pos->w) // If it's now White's turn, it means Black just moved
     {
         pos->m[1]++;
     }
 
-    // Debug
-    // printf("Castling rights: White K=%d Q=%d  Black K=%d Q=%d\n",
-    //        pos->c[0], pos->c[1], pos->c[2], pos->c[3]);
-    // printf("En Passant: [%d, %d]\n", pos->e[0], pos->e[1]);
-    // printf("Side to move is now: %s\n", pos->w ? "White" : "Black");
-    // printf("Halfmove: %d, Fullmove: %d\n", pos->m[0], pos->m[1]);
+    printf("\n--- Move Details ---\n");
+    printf("Move Applied: %c%d to %c%d, Piece: %c\n",
+           'a' + inputMove.before.x, 8 - inputMove.before.y,
+           'a' + inputMove.after.x, 8 - inputMove.after.y,
+           inputMove.piece_moved);
+    printf("Captured: '%c', Promoted: '%c', Castling: %d, En Passant: %d\n",
+           inputMove.captured_piece, inputMove.promotion_piece,
+           inputMove.is_castling, inputMove.is_en_passant);
+    printf("New castling rights: WK: %d, WQ: %d, BK: %d, BQ: %d\n",
+           pos->c[0], pos->c[1], pos->c[2], pos->c[3]);
+    printf("New En Passant target: %c%d\n",
+           pos->e[0] != -1 ? ('a' + pos->e[0]) : '-',
+           pos->e[1] != -1 ? (8 - pos->e[1]) : '-');
+    printf("Halfmove clock: %d, Fullmove number: %d\n", pos->m[0], pos->m[1]);
+    printf("Side to move is now: %s\n", pos->w ? "White" : "Black");
+    printf("--------------------\n");
 }

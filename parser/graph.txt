@@ -1,0 +1,497 @@
+*Main evaluation
+calls: Middle game evaluation, End game evaluation, Phase, Rule50, Scale factor, Tempo
+called by:
+
+*Middle game evaluation
+calls: Piece value mg, Psqt mg, Imbalance total, Pawns mg, Pieces mg, Mobility mg, Threats mg, Passed mg, Space, King mg, Winnable total mg
+called by: Main evaluation, Winnable total mg
+
+*Piece value mg
+calls: Piece value bonus
+called by: Middle game evaluation
+
+*Piece value bonus
+calls:
+called by: Non pawn material, Piece value mg, Piece value eg
+
+*Psqt mg
+calls: Psqt bonus
+called by: Middle game evaluation
+
+*Psqt bonus
+calls:
+called by: Psqt mg, Psqt eg
+
+*Imbalance total
+calls: Imbalance, Bishop pair
+called by: Middle game evaluation, End game evaluation
+
+*Imbalance
+calls:
+called by: Imbalance total
+
+*Bishop pair
+calls: Bishop count
+called by: Imbalance total
+
+*Bishop count
+calls:
+called by: Scale factor, Bishop pair, Opposite bishops
+
+*Pawns mg
+calls: Doubled isolated, Isolated, Backward, Doubled, Connected, Connected bonus, Weak unopposed pawn, Blocked
+called by: Middle game evaluation
+
+*Doubled isolated
+calls: Isolated
+called by: Pawns mg, Pawns eg
+
+*Isolated
+calls:
+called by: Weak unopposed pawn, Doubled isolated, Pawns mg, Pawns eg
+
+*Backward
+calls:
+called by: Weak unopposed pawn, Pawn attacks span, Pawns mg, Pawns eg
+
+*Doubled
+calls:
+called by: Pawns mg, Pawns eg
+
+*Connected
+calls: Supported, Phalanx
+called by: Connected bonus, Pawns mg, Pawns eg
+
+*Supported
+calls:
+called by: Connected, Candidate passed, Connected bonus
+
+*Phalanx
+calls:
+called by: Connected, Connected bonus
+
+*Connected bonus
+calls: Connected, Opposed, Phalanx, Supported, Rank
+called by: Pawns mg, Pawns eg
+
+*Opposed
+calls:
+called by: Connected bonus, Weak unopposed pawn
+
+*Rank
+calls:
+called by: Mobility area, Outpost square, Space area, King proximity, Passed block, Passed rank, Connected bonus, Pawns eg
+
+*Weak unopposed pawn
+calls: Opposed, Isolated, Backward
+called by: Pawns mg, Pawns eg
+
+*Blocked
+calls:
+called by: Pawns mg, Pawns eg
+
+*Pieces mg
+calls: Outpost total, Minor behind pawn, Bishop pawns, Bishop xray pawns, Rook on queen file, Rook on king ring, Bishop on king ring, Rook on file, Trapped rook, Weak queen, Queen infiltration, King protector, Long diagonal bishop
+called by: Middle game evaluation
+ 
+*Outpost total
+calls: Outpost, Reachable outpost
+called by: Pieces mg, Pieces eg
+
+*Outpost
+calls: Outpost square
+called by: Outpost total
+
+*Outpost square
+calls: Rank, Pawn attacks span
+called by: Outpost, Reachable outpost
+
+*Pawn attacks span
+calls: Backward
+called by: Outpost square, Queen infiltration
+
+*Reachable outpost
+calls: Knight attack, Outpost square, Bishop xray attack
+called by: Outpost total
+
+*Knight attack
+calls: Pinned
+called by: Mobility, Reachable outpost, Attack, Minor threat, Check, King attackers count, King attacks, Knight on queen, Knight defender
+
+*Pinned
+calls: Pinned direction
+called by: Knight attack
+
+*Pinned direction
+calls:
+called by: Bishop xray attack, Rook xray attack, Queen attack, Queen attack diagonal, Pinned, Blockers for king
+
+*Bishop xray attack
+calls: Pinned direction
+called by: Mobility, Reachable outpost, Attack, Minor threat, Check, King attackers count, King attacks, Slider on queen
+
+*Minor behind pawn
+calls:
+called by: Pieces mg, Pieces eg
+
+*Bishop pawns
+calls: Pawn attack
+called by: Pieces mg, Pieces eg
+
+*Pawn attack
+calls:
+called by: Bishop pawns, Attack, Threat safe pawn, Restricted
+
+*Bishop xray pawns
+calls:
+called by: Pieces mg, Pieces eg
+
+*Rook on queen file
+calls:
+called by: Pieces mg, Pieces eg
+
+*Rook on king ring
+calls: King attackers count, King ring
+called by: Pieces mg
+
+*King attackers count
+calls: King ring, Knight attack, Bishop xray attack, Rook xray attack, Queen attack
+called by: King attackers weight, King attacks, King danger, Rook on king ring, Bishop on king ring
+
+*King ring
+calls:
+called by: King attackers count, Weak bonus, Rook on king ring, Bishop on king ring
+
+*Rook xray attack
+calls: Pinned direction
+called by: Mobility, Attack, Rook threat, Check, King attackers count, King attacks, Slider on queen
+
+*Queen attack
+calls: Pinned direction
+called by: Mobility, Attack, Check, Safe check, King attackers count, King attacks, Weak squares, Slider on queen, Weak queen protection
+
+*Bishop on king ring
+calls: King attackers count, King ring
+called by: Pieces mg
+
+*Rook on file
+calls:
+called by: Trapped rook, Pieces mg, Pieces eg
+
+*Trapped rook
+calls: Rook on file, Mobility
+called by: Pieces mg, Pieces eg
+
+*Mobility
+calls: Mobility area, Knight attack, Bishop xray attack, Rook xray attack, Queen attack
+called by: Mobility bonus, Trapped rook 
+
+*Mobility area
+calls: Rank, Blockers for king
+called by: Mobility, Slider on queen, Knight on queen
+
+*Blockers for king
+calls: Pinned direction
+called by: Mobility area, King danger
+
+*Weak queen
+calls:
+called by: Pieces mg, Pieces eg
+
+*Queen infiltration
+calls: Pawn attacks span
+called by: Pieces mg, Pieces eg
+
+*King protector
+calls: King distance
+called by: Pieces mg, Pieces eg
+
+*King distance
+calls:
+called by: King protector
+
+*Long diagonal bishop
+calls:
+called by: Pieces mg
+
+*Mobility mg
+calls: Mobility bonus
+called by: Middle game evaluation, King danger
+
+*Mobility bonus
+calls: Mobility
+called by: Mobility mg, Mobility eg
+
+*Threats mg
+calls: Hanging, King threat, Pawn push threat, Threat safe pawn, Slider on queen, Knight on queen, Restricted, Weak queen protection, Minor threat, Rook threat
+called by: Middle game evaluation
+
+*Hanging
+calls: Weak enemies, Attack
+called by: Threats mg, Threats eg
+
+*Weak enemies
+calls: Attack
+called by: Minor threat, Rook threat, Hanging, King threat, Weak queen protection
+
+*Attack
+calls: Pawn attack, King attack, Knight attack, Bishop xray attack, Rook xray attack, Queen attack
+called by: Space area, Safe pawn, Weak enemies, Minor threat, Hanging, Pawn push threat, Passed block, Safe check, Weak squares, Slider on queen, Knight on queen, Restricted, Flank attack, Flank defense, Passed leverable
+
+*King attack
+calls:
+called by: Attack, King threat, Weak squares, Knight defender
+
+*King threat
+calls: Weak enemies, King attack
+called by: Threats mg, Threats eg
+
+*Pawn push threat
+calls: Attack
+called by: Threats mg, Threats eg
+
+*Threat safe pawn
+calls: Pawn attack, Safe pawn
+called by: Threats mg, Threats eg
+
+*Safe pawn
+calls: Attack
+called by: Threat safe pawn
+
+*Slider on queen
+calls: Queen count, Attack, Mobility area, Queen attack diagonal, Bishop xray attack, Rook xray attack, Queen attack
+called by: Threats mg, Threats eg
+
+*Queen count
+calls:
+called by: Scale factor, Slider on queen, Knight on queen, King danger
+
+*Queen attack diagonal
+calls: Pinned direction
+called by: Slider on queen
+
+*Knight on queen
+calls: Queen count, Attack, Mobility area, Knight attack
+called by: Threats mg, Threats eg
+
+*Restricted
+calls: Attack, Pawn attack
+called by: Threats mg, Threats eg
+
+*Weak queen protection
+calls: Weak enemies, Queen attack
+called by: Threats mg
+
+*Minor threat
+calls: *Knight attack, Bishop xray attack, Attack, Weak enemies
+called by: Threats mg, Threats eg
+
+*Rook threat
+calls: Weak enemies, Rook xray attack
+called by: Threats mg, Threats eg
+
+*Passed mg
+calls: Passed leverable, Passed rank, Passed block, Passed file
+called by: Middle game evaluation
+
+*Passed leverable
+calls: Candidate passed, Attack
+called by: King proximity, Passed block, Passed file, Passed rank, Passed mg, Passed eg
+
+*Candidate passed
+calls: Supported
+called by: Scale factor, Winnable, Passed leverable
+
+*Passed rank
+calls: Passed leverable, Rank
+called by: Passed mg, Passed eg
+
+*Passed block
+calls: Passed leverable, Rank, Attack
+called by: Passed mg, Passed eg
+
+*Passed file
+calls: Passed leverable, File
+called by: Passed mg, Passed eg
+
+*File
+calls:
+called by: Space area, Passed file
+
+*Space
+calls: Non pawn material, Space area
+called by: Middle game evaluation
+
+*Non pawn material
+calls: Piece value bonus
+called by: Scale factor, Phase, Winnable, Space
+
+*Space area
+calls: Rank, File, Attack
+called by: Space
+
+*King mg
+calls: King danger, Shelter strength, Shelter storm, Flank attack, Pawnless flank
+called by: Middle game evaluation
+
+*King danger
+calls: King attackers count, King attackers weight, King attacks, Weak bonus, Unsafe checks, Blockers for king, Flank attack, Flank defense, Queen count, Knight defender, Shelter strength, Shelter storm, Mobility mg, Safe check
+called by: King mg, King eg
+
+*King attackers weight
+calls: King attackers count
+called by: King danger
+
+*King attacks
+calls: King attackers count, Knight attack, Bishop xray attack, Rook xray attack, Queen attack
+called by: King danger
+
+*Weak bonus
+calls: Weak squares, King ring
+called by: King danger
+
+*Weak squares
+calls: Attack, King attack, Queen attack
+called by: Safe check, Weak bonus
+
+*Unsafe checks
+calls: Check, Safe check
+called by: King danger
+
+*Check
+calls: Rook xray attack, Queen attack, Bishop xray attack, Knight attack
+called by: Safe check, Unsafe checks
+
+*Safe check
+calls: Check, Safe check, Attack, Weak squares, Queen attack
+called by: Safe check, Unsafe checks, King danger
+
+*Flank attack
+calls: Attack
+called by: King danger, King mg
+
+*Flank defense
+calls: Attack
+called by: King danger
+
+*Knight defender
+calls: Knight attack, King attack
+called by: King danger
+
+*Shelter strength
+calls: Strength square, Storm square
+called by: King danger, King mg
+
+*Strength square
+calls:
+called by: Shelter strength, Shelter storm, Endgame shelter
+
+*Storm square
+calls:
+called by: Shelter strength, Shelter storm, Endgame shelter
+
+*Shelter storm
+calls: Strength square, Storm square
+called by: King danger, King mg
+
+*Pawnless flank
+calls:
+called by: King mg, King eg
+
+*Winnable total mg
+calls: Middle game evaluation, Winnable
+called by: Middle game evaluation
+
+*Winnable
+calls: Candidate passed, Non pawn material
+called by: Winnable total mg, Winnable total eg
+
+*End game evaluation
+calls: Piece value eg, Psqt eg, Imbalance total, Pawns eg, Pieces eg, Mobility eg, Threats eg, Passed eg, King eg, Winnable total eg
+called by: Main evaluation, Scale factor, Winnable total eg
+
+*Piece value eg
+calls: Piece value bonus
+called by: End game evaluation
+
+*Psqt eg
+calls: Psqt bonus
+called by: End game evaluation
+
+*Pawns eg
+calls: Doubled isolated, Isolated, Backward, Doubled, Connected, Connected bonus, Rank, Weak unopposed pawn, Weak lever, Blocked
+called by: End game evaluation
+
+*Weak lever
+calls:
+called by: Pawns eg
+
+*Pieces eg
+calls: Outpost total, Minor behind pawn, Bishop pawns, Bishop xray pawns, Rook on queen file, Rook on file, Trapped rook, Weak queen, Queen infiltration, King protector
+called by: End game evaluation
+
+*Mobility eg
+calls: Mobility bonus
+called by: End game evaluation
+
+*Threats eg
+calls: Hanging, King threat, Pawn push threat, Threat safe pawn, Slider on queen, Knight on queen, Restricted, Minor threat, Rook threat
+called by: End game evaluation
+
+*Passed eg
+calls: Passed leverable, King proximity, Passed rank, Passed block, Passed file
+called by:
+
+*King proximity
+calls: Passed leverable, Rank
+called by: Passed eg
+
+*King eg
+calls: King pawn distance, Endgame shelter, Pawnless flank, King danger
+called by: End game evaluation
+
+*King pawn distance
+calls: 
+called by: King eg
+
+*Endgame shelter
+calls: Strength square, Storm square
+called by: King eg
+
+*Winnable total eg
+calls: End game evaluation, Winnable
+called by: End game evaluation
+
+*Phase
+calls: Non pawn material
+called by: Main evaluation
+
+*Rule50
+calls:
+called by: Main evaluation
+
+*Scale factor
+calls: End game evaluation, Pawn count, Queen count, Bishop count, Knight count, Non pawn material, Opposite bishops, Candidate passed, Piece count
+called by: Main evaluation
+
+*Pawn count
+calls:
+called by: Scale factor
+
+*Knight count
+calls:
+called by: Scale factor
+
+*Opposite bishops
+calls: Bishop count
+called by: Scale factor
+
+*Piece count
+calls:
+called by: Scale factor
+
+*Tempo
+calls: 
+called by: Main evaluation
+
+*end

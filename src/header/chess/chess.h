@@ -98,52 +98,48 @@ typedef struct
 
 typedef struct
 {
-    int piece_value;           // none
-    int psqt;                  // none
-    int imbalance;             // none
-    int bishop_pair;           // none
-    int pawns;                 // none
-    int pieces;                // none
-    int mobility_white;        // none // double
-    int mobility_black;        // none // d ok
-    int hanging;               // none
-    int king_threat;           // none
-    int pawn_push_threat;      // none
-    int threat_safe_pawn;      // none
-    int slider_on_queen;       // none
-    int knight_on_queen;       // none
-    int restricted;            // none
-    int weak_queen_protection; // none
-    int minor_threat;          // none
-    int root_threat;           // none
-    int passed;                // none
-    int non_pawn_material;     // none // double
-    int piece_count;           // none
-    int blocked_count;         // none
-    int space_area;            // none
-    int king_attackers_count;  // none
-    int king_attackers_weight; // none
-    int king_attacks;          // none
-    int weak_bonus;            // none
-    int unsafe_checks;         // none
-    int blockers_for_king;     // none
-    int flank_attack;          // none // double
-    int flank_defense;         // none
-    int queen_count;           // none
-    int knight_defender;       // none
-    int shelter_strength;      // none // double
-    int shelter_storm;         // none // double
-    int safe_check0;           // none
-    int safe_check1;           // none
-    int safe_check2;           // none
-    int safe_check3;           // none
-    int shelter_strength;      // none // d ok
-    int shelter_storm;         // none // d ok
-    int flank_attack;          // none // d ok
-    int pawns_list[8];         // none
-    int kx;                    // none
-    int candidate_passed;      // none
-    int non_pawn_material;     // none // d
+    int piece_value;           
+    int psqt;                  
+    int imbalance;             
+    int bishop_pair;           
+    int pawns;                 
+    int pieces;                
+    int mobility_white;        
+    int mobility_black;        
+    int hanging;               
+    int king_threat;           
+    int pawn_push_threat;      
+    int threat_safe_pawn;      
+    int slider_on_queen;       
+    int knight_on_queen;       
+    int restricted;            
+    int weak_queen_protection; 
+    int minor_threat;          
+    int root_threat;           
+    int passed;                
+    int non_pawn_material;     
+    int piece_count;           
+    int blocked_count;         
+    int space_area;            
+    int king_attackers_count;  
+    int king_attackers_weight; 
+    int king_attacks;          
+    int weak_bonus;            
+    int unsafe_checks;         
+    int blockers_for_king;     
+    int flank_attack;          
+    int flank_defense;         
+    int queen_count;           
+    int knight_defender;       
+    int shelter_strength;      
+    int shelter_storm;         
+    int safe_check0;           
+    int safe_check1;           
+    int safe_check2;           
+    int safe_check3;           
+    int pawns_list[8];         
+    int kx;                    
+    int candidate_passed;      
     int phase;
     int rule50;
     int scale_factor;
